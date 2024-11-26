@@ -3,7 +3,8 @@
 	"package": "q4niel.flourishing_fields.mixin",
 	"compatibilityLevel": "JAVA_21",
 	"mixins": [
-		"BeeEntityMixin"
+		"BeeEntityMixin",
+		"BoneMealItemMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
