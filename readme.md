@@ -1,5 +1,4 @@
 # Flourishing Fields
-___
 
 ## Features
 - **Bee Flower Spread:** Bees will now spread flowers as they pollinate, enriching the environment with more blooms.
