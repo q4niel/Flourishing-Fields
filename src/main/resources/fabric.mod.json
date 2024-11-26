@@ -1,0 +1,36 @@
+{
+	"schemaVersion": 1,
+	"id": "flourishing_fields",
+	"version": "${version}",
+	"name": "Flourishing Fields",
+	"description": "This is an example description! Tell everyone what your mod is about!",
+	"authors": [
+		"q4niel"
+	],
+	"contact": {
+		"sources": "https://github.com/q4niel/Flourishing-Fields"
+	},
+	"license": "The Insight License I",
+	"icon": "assets/flourishing_fields/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"q4niel.flourishing_fields.FlourishingFields"
+		],
+		"fabric-datagen": [
+			"q4niel.flourishing_fields.FlourishingFieldsDataGenerator"
+		]
+	},
+	"mixins": [
+		"flourishing_fields.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.16.9",
+		"minecraft": "~1.21",
+		"java": ">=21",
+		"fabric-api": "*"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
+}
