@@ -2,7 +2,9 @@
 	"required": true,
 	"package": "q4niel.flourishing_fields.mixin",
 	"compatibilityLevel": "JAVA_21",
-	"mixins": [],
+	"mixins": [
+		"BeeEntityMixin"
+	],
 	"injectors": {
 		"defaultRequire": 1
 	}
