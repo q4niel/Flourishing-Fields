@@ -3,14 +3,19 @@
 	"id": "flourishing_fields",
 	"version": "${version}",
 	"name": "Flourishing Fields",
-	"description": "Bees spread flowers, and small flower bone mealing.",
+	"description": "Bees will now spread flowers while pollinating",
 	"authors": [
 		"q4niel"
 	],
+	"contributors": [
+		"Max Westerlund - Art Assets"
+	],
 	"contact": {
+		"homepage": "https://modrinth.com/mod/flourishing-fields",
+		"issues": "https://github.com/q4niel/Flourishing-Fields/issues",
 		"sources": "https://github.com/q4niel/Flourishing-Fields"
 	},
-	"license": "The Insight License I",
+	"license": "The Insight License II",
 	"icon": "assets/flourishing_fields/icon.png",
 	"environment": "*",
 	"entrypoints": {
