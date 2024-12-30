@@ -22,6 +22,8 @@ public class BeeEntityMixin {
             at = @At("HEAD")
     )
     public void tick(CallbackInfo info) {
+        if (FlourishingFields.SERVER == null) return;
+
         FlourishingFields.SERVER.execute(() -> {
             BeeEntity self = (BeeEntity)(Object)this;
             World world = FlourishingFields.SERVER.getWorld(World.OVERWORLD);
