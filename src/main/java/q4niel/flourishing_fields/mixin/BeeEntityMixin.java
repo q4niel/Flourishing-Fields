@@ -2,6 +2,8 @@ package q4niel.flourishing_fields.mixin;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.TallFlowerBlock;
+import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -43,6 +45,25 @@ public class BeeEntityMixin {
             &&  world.getBlockState(self.getBlockPos().down()).isOf(Blocks.GRASS_BLOCK)
             &&  new Random().nextInt(100) < 5
             ) {
+                if (flowerState.getBlock() instanceof TallFlowerBlock) {
+                    if (!world.getBlockState(self.getBlockPos().up()).isAir()) return;
+                    hasSpread = true;
+
+                    world.setBlockState (
+                            self.getBlockPos(),
+                            flowerState.getBlock().getDefaultState().with(TallFlowerBlock.HALF, DoubleBlockHalf.LOWER),
+                            3
+                    );
+
+                    world.setBlockState (
+                            self.getBlockPos().up(),
+                            flowerState.getBlock().getDefaultState().with(TallFlowerBlock.HALF, DoubleBlockHalf.UPPER),
+                            3
+                    );
+
+                    return;
+                }
+
                 hasSpread = true;
                 world.setBlockState (
                         self.getBlockPos(),
