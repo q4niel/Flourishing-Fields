@@ -43,7 +43,7 @@ public class BeeEntityMixin {
             &&  !hasSpread
             &&  world.getBlockState(self.getBlockPos()).isAir()
             &&  world.getBlockState(self.getBlockPos().down()).isOf(Blocks.GRASS_BLOCK)
-            &&  new Random().nextInt(100) < 5
+            &&  new Random().nextInt(100) < FlourishingFields.SERVER_CONFIG.BEE_SPREAD_CHANCE
             ) {
                 if (flowerState.getBlock() instanceof TallFlowerBlock) {
                     if (!world.getBlockState(self.getBlockPos().up()).isAir()) return;
