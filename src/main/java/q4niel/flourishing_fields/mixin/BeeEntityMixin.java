@@ -5,6 +5,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.TallFlowerBlock;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.passive.BeeEntity;
+import net.minecraft.registry.Registries;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -34,16 +35,17 @@ public class BeeEntityMixin {
                 flowerState = world.getBlockState(self.getFlowerPos());
             }
 
-            if (!self.hasNectar()) {
+            if (flowerState == null) return;
+
+            if (!self.hasNectar() || isBlacklisted()) {
                 hasSpread = false;
                 return;
             }
 
-            if (flowerState != null
-            &&  !hasSpread
+            if (!hasSpread
             &&  world.getBlockState(self.getBlockPos()).isAir()
             &&  world.getBlockState(self.getBlockPos().down()).isOf(Blocks.GRASS_BLOCK)
-            &&  new Random().nextInt(100) < 5
+            &&  new Random().nextInt(100) < FlourishingFields.SERVER_CONFIG.BEE_SPREAD_CHANCE
             ) {
                 if (flowerState.getBlock() instanceof TallFlowerBlock) {
                     if (!world.getBlockState(self.getBlockPos().up()).isAir()) return;
@@ -72,5 +74,15 @@ public class BeeEntityMixin {
                 );
             }
         });
+    }
+
+    private boolean isBlacklisted() {
+        String flowerId = String.valueOf(Registries.BLOCK.getId(flowerState.getBlock()));
+
+        for (String blackId : FlourishingFields.SERVER_CONFIG.FLOWER_SPREAD_BLACKLIST) {
+            if (blackId.equals(flowerId)) return true;
+        }
+
+        return false;
     }
 }
