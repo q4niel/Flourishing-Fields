@@ -35,12 +35,15 @@ public class ServerConfig {
 
         if (file == null) {
             file = new ServerConfigFile (
-                    5
+                    5,
+                    new String[0]
             );
         }
 
         this.BEE_SPREAD_CHANCE = Math.max(0, Math.min(100, file.beeSpreadChance));
+        this.FLOWER_SPREAD_BLACKLIST = file.flowerSpreadBlacklist;
     }
 
     public final int BEE_SPREAD_CHANCE;
+    public final String[] FLOWER_SPREAD_BLACKLIST;
 }
