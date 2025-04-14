@@ -9,7 +9,11 @@ import org.slf4j.LoggerFactory
 
 object FlourishingFields: ModInitializer {
 	public fun print(value: String): Unit = _logger.info(value);
+
+	public fun getServer(): MinecraftServer? = _server;
 	public fun serverExec(runnable: Runnable): Unit? = _server?.execute(runnable);
+
+	public fun getClient(): MinecraftClient? = _client;
 	public fun clientExec(runnable: Runnable): Unit? = _client?.execute(runnable);
 
 	private val _logger: org.slf4j.Logger = LoggerFactory.getLogger("flourishing_fields");
