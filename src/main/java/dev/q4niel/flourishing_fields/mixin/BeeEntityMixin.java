@@ -7,6 +7,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.TallFlowerBlock;
 import net.minecraft.block.enums.DoubleBlockHalf;
 import net.minecraft.entity.passive.BeeEntity;
+import net.minecraft.registry.Registries;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -43,7 +44,21 @@ public class BeeEntityMixin {
     }
 
     private boolean spreadSuccess() {
-        return new Random().nextInt(100) < 100;
+        return new Random().nextInt(100) < FlourishingFields.INSTANCE.getServerConfig().getBeeSpreadChance();
+    }
+
+    private boolean isBlacklisted() {
+        if (getFlowerBlockState() == null) return true;
+
+        String flowerId = String.valueOf (
+                Registries.BLOCK.getId(getFlowerBlockState().getBlock())
+        );
+
+        for (String blackId : FlourishingFields.INSTANCE.getServerConfig().getFlowerSpreadBlacklist()) {
+            if (blackId.equals(flowerId)) return true;
+        }
+
+        return false;
     }
 
 //  enum Action {
@@ -54,7 +69,7 @@ public class BeeEntityMixin {
 //  }
     StateMachine<Integer> machine = new StateMachine<Integer>(_collectingAction, new HashMap<Integer, Runnable>() {{
         put(_collectingAction, () -> {
-            if (!self.hasNectar() || getFlowerBlockState() == null) return;
+            if (!self.hasNectar() || isBlacklisted()) return;
 
             if (getFlowerBlockState().getBlock() instanceof TallFlowerBlock) {
                 machine.changeAction(_tallFlowerAction);
@@ -82,10 +97,7 @@ public class BeeEntityMixin {
         });
 
         put(_tallFlowerAction, () -> {
-            if (!isBottomClear()
-            ||  !isTopClear()
-            ||  !spreadSuccess()
-            ) return;
+            if (!isBottomClear() || !isTopClear() || !spreadSuccess()) return;
 
             world.setBlockState (
                     self.getBlockPos(),
