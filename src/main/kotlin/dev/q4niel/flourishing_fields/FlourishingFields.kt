@@ -8,9 +8,16 @@ import net.minecraft.server.MinecraftServer
 import org.slf4j.LoggerFactory
 
 object FlourishingFields: ModInitializer {
-	public fun print(value: String): Unit = _logger.info(value);
-	public fun serverExec(runnable: Runnable): Unit? = _server?.execute(runnable);
-	public fun clientExec(runnable: Runnable): Unit? = _client?.execute(runnable);
+	fun print(value: String): Unit = _logger.info(value);
+
+	fun getServer(): MinecraftServer? = _server;
+	fun isServer(): Boolean = if (_server == null) false else true
+	fun serverExec(runnable: Runnable): Unit? = _server?.execute(runnable);
+	val serverConfig: ServerConfigFile = configInterpreter<ServerConfigFile>("config/flourishing_fields.json") ?: ServerConfigFile();
+
+	fun getClient(): MinecraftClient? = _client;
+	fun isClient(): Boolean = if (_client == null) false else true
+	fun clientExec(runnable: Runnable): Unit? = _client?.execute(runnable);
 
 	private val _logger: org.slf4j.Logger = LoggerFactory.getLogger("flourishing_fields");
 	private var _server: MinecraftServer? = null;
