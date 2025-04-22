@@ -1,6 +1,5 @@
 package dev.q4niel.flourishing_fields.growing_flower
 
-import dev.q4niel.flourishing_fields.growing_flower.seeds.GrowingFlowerSeeds
 import net.minecraft.block.*
 import net.minecraft.item.ItemConvertible
 import net.minecraft.state.StateManager

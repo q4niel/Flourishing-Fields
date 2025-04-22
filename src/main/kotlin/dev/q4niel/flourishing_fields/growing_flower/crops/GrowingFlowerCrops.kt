@@ -23,7 +23,7 @@ object GrowingFlowerCrops {
         initCrop(POPPY);
     }
 
-    val POPPY: Block = regCrop("poppy_crop", ::GrowingPoppyCropBlock)
+    val POPPY: Block = regCrop("poppy", ::GrowingPoppyCropBlock)
 
     private fun initCrop(crop: Block): Unit = BlockRenderLayerMap.INSTANCE.putBlock(POPPY, RenderLayer.getCutout());
 
