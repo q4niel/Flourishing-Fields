@@ -31,40 +31,40 @@ class ModLootTableProvider (
     registryLookup
 ) {
     override fun generate() {
-        genShortFlowerCrop(GrowingFlowerCrops.POPPY, GrowingFlowerSeeds.POPPY, Items.POPPY);
-        genTallFlowerLowerCrop(GrowingFlowerCrops.PEONY.LOWER, GrowingFlowerSeeds.PEONY, Items.PEONY);
+        genFlowerCrop(GrowingFlowerCrops.POPPY, GrowingFlowerSeeds.POPPY, Items.POPPY);
+        genTallFlowerCrop(GrowingFlowerCrops.PEONY, GrowingFlowerSeeds.PEONY, Items.PEONY);
     }
 
-    private fun genTallFlowerLowerCrop (
-        crop: Block,
+    private fun genTallFlowerCrop (
+        tallCrop: GrowingFlowerCrops.TallCrop,
         seeds: Item,
         flower: Item
-    ) = genFlowerCrop (
-        crop,
-        seeds,
-        flower,
-        GrowingTallFlowerLowerCropBlock.AGE,
-        GrowingTallFlowerLowerCropBlock.MAX_AGE
-    );
+    ): Unit {
+        genFlowerCrop (
+            tallCrop.LOWER,
+            seeds,
+            flower,
+            GrowingTallFlowerLowerCropBlock.AGE,
+            GrowingTallFlowerLowerCropBlock.MAX_AGE
+        )
 
-    private fun genShortFlowerCrop (
-        crop: Block,
-        seeds: Item,
-        flower: Item
-    ) = genFlowerCrop (
-        crop,
-        seeds,
-        flower,
-        GrowingFlowerCropBlock.AGE,
-        GrowingFlowerCropBlock.MAX_AGE
-    );
+        addDrop (
+            tallCrop.UPPER,
+            flowerCropDrops (
+                tallCrop.UPPER,
+                flower,
+                seeds,
+                BlockStatePropertyLootCondition.builder(tallCrop.UPPER)
+            )
+        );
+    }
 
     private fun genFlowerCrop (
         crop: Block,
         seeds: Item,
         flower: Item,
-        age: IntProperty,
-        maxAge: Int
+        age: IntProperty = GrowingFlowerCropBlock.AGE,
+        maxAge: Int = GrowingFlowerCropBlock.MAX_AGE
     ): Unit {
         val builder: BlockStatePropertyLootCondition.Builder = BlockStatePropertyLootCondition
             .builder(crop)
