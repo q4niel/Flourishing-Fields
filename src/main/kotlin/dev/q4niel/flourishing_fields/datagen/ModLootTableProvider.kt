@@ -32,7 +32,7 @@ class ModLootTableProvider (
 ) {
     override fun generate() {
         genShortFlowerCrop(GrowingFlowerCrops.POPPY, GrowingFlowerSeeds.POPPY, Items.POPPY);
-        genTallFlowerLowerCrop(GrowingFlowerCrops.PEONY_LOWER, GrowingFlowerSeeds.PEONY, Items.PEONY);
+        genTallFlowerLowerCrop(GrowingFlowerCrops.PEONY.LOWER, GrowingFlowerSeeds.PEONY, Items.PEONY);
     }
 
     private fun genTallFlowerLowerCrop (

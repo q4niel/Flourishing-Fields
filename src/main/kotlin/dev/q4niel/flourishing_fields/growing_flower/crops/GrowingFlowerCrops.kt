@@ -21,16 +21,23 @@ import net.minecraft.util.Identifier
 import java.util.function.Function
 
 object GrowingFlowerCrops {
+    data class TallCrop (
+        val UPPER: Block,
+        val LOWER: Block
+    );
+
     val POPPY: Block = regCrop("poppy", ::GrowingPoppyCropBlock);
 
-    val PEONY_LOWER: Block = regCrop("peony_lower", ::GrowingPeonyLowerCropBlock);
-    val PEONY_UPPER: Block = regCrop("peony_upper", ::GrowingPeonyUpperCropBlock);
+    val PEONY: TallCrop = regTallCrop (
+        "peony_upper", ::GrowingPeonyUpperCropBlock,
+        "peony_lower", ::GrowingPeonyLowerCropBlock
+    );
 
     fun init(): Unit {
         fixLayerMap(POPPY);
 
-        fixLayerMap(PEONY_LOWER);
-        fixLayerMap(PEONY_UPPER);
+        fixLayerMap(PEONY.LOWER);
+        fixLayerMap(PEONY.UPPER);
     }
 
     private fun fixLayerMap(crop: Block): Unit = BlockRenderLayerMap.INSTANCE.putBlock(crop, RenderLayer.getCutout());
@@ -43,6 +50,16 @@ object GrowingFlowerCrops {
         true,
         factory,
         cropSettings()
+    );
+
+    private fun regTallCrop (
+        upperName: String,
+        upperFactory: Function<AbstractBlock.Settings, Block>,
+        lowerName: String,
+        lowerFactory: Function<AbstractBlock.Settings, Block>
+    ): TallCrop = TallCrop (
+        regCrop(upperName, upperFactory),
+        regCrop(lowerName, lowerFactory)
     );
 
     private fun cropSettings(): AbstractBlock.Settings = AbstractBlock.Settings

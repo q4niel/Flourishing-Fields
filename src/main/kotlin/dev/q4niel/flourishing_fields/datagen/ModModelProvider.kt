@@ -15,8 +15,8 @@ class ModModelProvider(output: FabricDataOutput?) : FabricModelProvider(output) 
     override fun generateBlockStateModels(generator: BlockStateModelGenerator) {
         genShortFlowerCropBlockState(generator, GrowingFlowerCrops.POPPY);
 
-        genTallFlowerLowerCropBlockState(generator, GrowingFlowerCrops.PEONY_LOWER);
-        generator.registerSimpleCubeAll(GrowingFlowerCrops.PEONY_UPPER);
+        genTallFlowerLowerCropBlockState(generator, GrowingFlowerCrops.PEONY.LOWER);
+        generator.registerSimpleCubeAll(GrowingFlowerCrops.PEONY.UPPER);
     }
 
     override fun generateItemModels(generator: ItemModelGenerator) {

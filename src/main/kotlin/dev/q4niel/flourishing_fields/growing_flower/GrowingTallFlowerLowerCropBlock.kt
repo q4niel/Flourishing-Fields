@@ -15,6 +15,8 @@ abstract class GrowingTallFlowerLowerCropBlock(settings: Settings?) : GrowingFlo
         val AGE: IntProperty = IntProperty.of("age", 0, 2);
     }
 
+    abstract fun getUpperBlock(): Block;
+
     override fun getAgeProperty(): IntProperty = AGE;
     override fun getMaxAge(): Int = MAX_AGE;
 
@@ -32,11 +34,11 @@ abstract class GrowingTallFlowerLowerCropBlock(settings: Settings?) : GrowingFlo
             super.grow(world, random, pos, state);
             if (!isMature(world?.getBlockState(pos))) return@Runnable;
 
-//            world?.setBlockState (
-//                pos?.up(),
-//                flower.defaultState.with(TallFlowerBlock.HALF, DoubleBlockHalf.UPPER),
-//                3
-//            );
+            world?.setBlockState (
+                pos?.up(),
+                getUpperBlock().defaultState,
+                3
+            );
         };
     }
 }
