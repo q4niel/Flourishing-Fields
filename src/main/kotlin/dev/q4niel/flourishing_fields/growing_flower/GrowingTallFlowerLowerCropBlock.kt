@@ -8,7 +8,6 @@ import net.minecraft.state.StateManager
 import net.minecraft.state.property.IntProperty
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.random.Random
-import net.minecraft.world.WorldAccess
 
 abstract class GrowingTallFlowerLowerCropBlock(settings: Settings?) : GrowingFlowerCropBlock(settings) {
     companion object {
@@ -44,8 +43,8 @@ abstract class GrowingTallFlowerLowerCropBlock(settings: Settings?) : GrowingFlo
         };
     }
 
-    override fun onBroken(world: WorldAccess?, pos: BlockPos?, state: BlockState?) {
-        super.onBroken(world, pos, state);
+    override fun onStateReplaced(state: BlockState?, world: ServerWorld?, pos: BlockPos?, moved: Boolean) {
+        super.onStateReplaced(state, world, pos, moved)
 
         FlourishingFields.serverExec {
             world?.breakBlock(pos?.up(), false);
