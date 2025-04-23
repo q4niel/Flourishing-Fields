@@ -1,6 +1,7 @@
 package dev.q4niel.flourishing_fields.datagen
 
 import dev.q4niel.flourishing_fields.growing_flower.GrowingFlowerCropBlock
+import dev.q4niel.flourishing_fields.growing_flower.GrowingTallFlowerCropBlock
 import dev.q4niel.flourishing_fields.growing_flower.crops.GrowingFlowerCrops
 import dev.q4niel.flourishing_fields.growing_flower.seeds.GrowingFlowerSeeds
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider
@@ -13,10 +14,12 @@ import net.minecraft.client.data.Models
 class ModModelProvider(output: FabricDataOutput?) : FabricModelProvider(output) {
     override fun generateBlockStateModels(generator: BlockStateModelGenerator) {
         genFlowerCropBlockState(generator, GrowingFlowerCrops.POPPY);
+        genTallFlowerCropBlockState(generator, GrowingFlowerCrops.PEONY);
     }
 
     override fun generateItemModels(generator: ItemModelGenerator) {
         generator.register(GrowingFlowerSeeds.POPPY, Models.GENERATED);
+        generator.register(GrowingFlowerSeeds.PEONY, Models.GENERATED);
     }
 
     private fun genFlowerCropBlockState(generator: BlockStateModelGenerator, cropBlock: Block) {
@@ -24,6 +27,14 @@ class ModModelProvider(output: FabricDataOutput?) : FabricModelProvider(output) 
             (cropBlock as GrowingFlowerCropBlock),
             GrowingFlowerCropBlock.AGE,
             0, 1
+        );
+    }
+
+    private fun genTallFlowerCropBlockState(generator: BlockStateModelGenerator, cropBlock: Block) {
+        generator.registerCrop (
+            (cropBlock as GrowingTallFlowerCropBlock),
+            GrowingTallFlowerCropBlock.AGE,
+            0, 1, 2
         );
     }
 }

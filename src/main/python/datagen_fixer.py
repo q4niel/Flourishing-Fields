@@ -18,9 +18,6 @@ def flowerBlockModel() -> None:
             file.seek(0)
 
             content = content.replace("crop", "cross")
-            if ("_stage1" in path):
-                content = content.replace("flourishing_fields", "minecraft")
-                content = content.replace("_stage1", "")
 
             file.write(content)
             file.truncate()

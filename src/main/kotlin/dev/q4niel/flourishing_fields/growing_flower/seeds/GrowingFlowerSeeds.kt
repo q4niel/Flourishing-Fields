@@ -11,9 +11,10 @@ import net.minecraft.util.Identifier
 import java.util.function.Function
 
 object GrowingFlowerSeeds {
-    fun init(): Unit? = null;
+    val POPPY: Item = reg("poppy_seeds", ::GrowingPoppySeedsItem, Settings());
+    val PEONY: Item = reg("peony_seeds", ::GrowingPeonySeedsItem, Settings());
 
-    val POPPY: Item = reg("poppy_seeds", ::GrowingPoppySeedsItem, Settings())
+    fun init(): Unit? = null;
 
     private fun reg (
         name: String,

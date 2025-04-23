@@ -1,6 +1,7 @@
 package dev.q4niel.flourishing_fields.datagen
 
 import dev.q4niel.flourishing_fields.growing_flower.GrowingFlowerCropBlock
+import dev.q4niel.flourishing_fields.growing_flower.GrowingTallFlowerCropBlock
 import dev.q4niel.flourishing_fields.growing_flower.crops.GrowingFlowerCrops
 import dev.q4niel.flourishing_fields.growing_flower.seeds.GrowingFlowerSeeds
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
@@ -19,6 +20,7 @@ import net.minecraft.loot.function.ApplyBonusLootFunction
 import net.minecraft.predicate.StatePredicate
 import net.minecraft.registry.RegistryKeys
 import net.minecraft.registry.RegistryWrapper
+import net.minecraft.state.property.IntProperty
 import java.util.concurrent.CompletableFuture
 
 class ModLootTableProvider (
@@ -29,13 +31,44 @@ class ModLootTableProvider (
     registryLookup
 ) {
     override fun generate() {
-        genFlowerCrop(GrowingFlowerCrops.POPPY, GrowingFlowerSeeds.POPPY, Items.POPPY);
+        genShortFlowerCrop(GrowingFlowerCrops.POPPY, GrowingFlowerSeeds.POPPY, Items.POPPY);
+        genTallFlowerCrop(GrowingFlowerCrops.PEONY, GrowingFlowerSeeds.PEONY, Items.PEONY);
     }
 
-    private fun genFlowerCrop(crop: Block, seeds: Item, flower: Item) {
+    private fun genTallFlowerCrop (
+        crop: Block,
+        seeds: Item,
+        flower: Item
+    ) = genFlowerCrop (
+        crop,
+        seeds,
+        flower,
+        GrowingTallFlowerCropBlock.AGE,
+        GrowingTallFlowerCropBlock.MAX_AGE
+    );
+
+    private fun genShortFlowerCrop (
+        crop: Block,
+        seeds: Item,
+        flower: Item
+    ) = genFlowerCrop (
+        crop,
+        seeds,
+        flower,
+        GrowingFlowerCropBlock.AGE,
+        GrowingFlowerCropBlock.MAX_AGE
+    );
+
+    private fun genFlowerCrop (
+        crop: Block,
+        seeds: Item,
+        flower: Item,
+        age: IntProperty,
+        maxAge: Int
+    ): Unit {
         val builder: BlockStatePropertyLootCondition.Builder = BlockStatePropertyLootCondition
             .builder(crop)
-            .properties(StatePredicate.Builder.create().exactMatch(GrowingFlowerCropBlock.AGE, GrowingFlowerCropBlock.MAX_AGE))
+            .properties(StatePredicate.Builder.create().exactMatch(age, maxAge))
         ;
         addDrop (
             crop,

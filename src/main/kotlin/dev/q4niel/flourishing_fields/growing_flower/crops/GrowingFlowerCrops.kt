@@ -19,20 +19,22 @@ import net.minecraft.util.Identifier
 import java.util.function.Function
 
 object GrowingFlowerCrops {
+    val POPPY: Block = regCrop("poppy", ::GrowingPoppyCropBlock);
+    val PEONY: Block = regCrop("peony", ::GrowingPeonyCropBlock);
+
     fun init(): Unit {
-        initCrop(POPPY);
+        fixLayerMap(POPPY);
+        fixLayerMap(PEONY);
     }
 
-    val POPPY: Block = regCrop("poppy", ::GrowingPoppyCropBlock)
-
-    private fun initCrop(crop: Block): Unit = BlockRenderLayerMap.INSTANCE.putBlock(POPPY, RenderLayer.getCutout());
+    private fun fixLayerMap(crop: Block): Unit = BlockRenderLayerMap.INSTANCE.putBlock(crop, RenderLayer.getCutout());
 
     private fun regCrop (
         name: String,
         factory: Function<AbstractBlock.Settings, Block>
     ): Block = reg (
         name,
-        false,
+        true,
         factory,
         cropSettings()
     );
