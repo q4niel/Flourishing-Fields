@@ -12,8 +12,11 @@ import net.minecraft.util.Hand
 abstract class GrowingFlowerSeedsItem(settings: Settings?) : Item(settings) {
     abstract val crop: Block;
 
+    protected open fun guardClause(context: ItemUsageContext): Boolean = false;
+
     override fun useOnBlock(context: ItemUsageContext): ActionResult {
         FlourishingFields.serverExec Runnable@ {
+            if (guardClause(context)) return@Runnable;
             val block: Block = context.world.getBlockState(context.blockPos).block;
             if (!GROWING_FLOWER_PLANTABLES.contains(block)) return@Runnable;
 
