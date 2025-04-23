@@ -8,6 +8,7 @@ import net.minecraft.state.StateManager
 import net.minecraft.state.property.IntProperty
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.random.Random
+import net.minecraft.world.WorldAccess
 
 abstract class GrowingTallFlowerLowerCropBlock(settings: Settings?) : GrowingFlowerCropBlock(settings) {
     companion object {
@@ -30,8 +31,9 @@ abstract class GrowingTallFlowerLowerCropBlock(settings: Settings?) : GrowingFlo
         pos: BlockPos?,
         state: BlockState?
     ) {
+        super.grow(world, random, pos, state);
+
         FlourishingFields.serverExec Runnable@ {
-            super.grow(world, random, pos, state);
             if (!isMature(world?.getBlockState(pos))) return@Runnable;
 
             world?.setBlockState (
@@ -39,6 +41,14 @@ abstract class GrowingTallFlowerLowerCropBlock(settings: Settings?) : GrowingFlo
                 getUpperBlock().defaultState,
                 3
             );
+        };
+    }
+
+    override fun onBroken(world: WorldAccess?, pos: BlockPos?, state: BlockState?) {
+        super.onBroken(world, pos, state);
+
+        FlourishingFields.serverExec {
+            world?.breakBlock(pos?.up(), false);
         };
     }
 }
