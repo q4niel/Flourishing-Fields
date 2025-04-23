@@ -1,7 +1,7 @@
 package dev.q4niel.flourishing_fields.datagen
 
 import dev.q4niel.flourishing_fields.growing_flower.GrowingFlowerCropBlock
-import dev.q4niel.flourishing_fields.growing_flower.GrowingTallFlowerCropBlock
+import dev.q4niel.flourishing_fields.growing_flower.GrowingTallFlowerLowerCropBlock
 import dev.q4niel.flourishing_fields.growing_flower.crops.GrowingFlowerCrops
 import dev.q4niel.flourishing_fields.growing_flower.seeds.GrowingFlowerSeeds
 import net.fabricmc.fabric.api.client.datagen.v1.provider.FabricModelProvider
@@ -13,8 +13,10 @@ import net.minecraft.client.data.Models
 
 class ModModelProvider(output: FabricDataOutput?) : FabricModelProvider(output) {
     override fun generateBlockStateModels(generator: BlockStateModelGenerator) {
-        genFlowerCropBlockState(generator, GrowingFlowerCrops.POPPY);
-        genTallFlowerCropBlockState(generator, GrowingFlowerCrops.PEONY);
+        genShortFlowerCropBlockState(generator, GrowingFlowerCrops.POPPY);
+
+        genTallFlowerLowerCropBlockState(generator, GrowingFlowerCrops.PEONY_LOWER);
+        generator.registerSimpleCubeAll(GrowingFlowerCrops.PEONY_UPPER);
     }
 
     override fun generateItemModels(generator: ItemModelGenerator) {
@@ -22,7 +24,7 @@ class ModModelProvider(output: FabricDataOutput?) : FabricModelProvider(output) 
         generator.register(GrowingFlowerSeeds.PEONY, Models.GENERATED);
     }
 
-    private fun genFlowerCropBlockState(generator: BlockStateModelGenerator, cropBlock: Block) {
+    private fun genShortFlowerCropBlockState(generator: BlockStateModelGenerator, cropBlock: Block) {
         generator.registerCrop (
             (cropBlock as GrowingFlowerCropBlock),
             GrowingFlowerCropBlock.AGE,
@@ -30,10 +32,10 @@ class ModModelProvider(output: FabricDataOutput?) : FabricModelProvider(output) 
         );
     }
 
-    private fun genTallFlowerCropBlockState(generator: BlockStateModelGenerator, cropBlock: Block) {
+    private fun genTallFlowerLowerCropBlockState(generator: BlockStateModelGenerator, cropBlock: Block) {
         generator.registerCrop (
-            (cropBlock as GrowingTallFlowerCropBlock),
-            GrowingTallFlowerCropBlock.AGE,
+            (cropBlock as GrowingTallFlowerLowerCropBlock),
+            GrowingTallFlowerLowerCropBlock.AGE,
             0, 1, 2
         );
     }

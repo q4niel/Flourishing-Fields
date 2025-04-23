@@ -1,6 +1,8 @@
 package dev.q4niel.flourishing_fields.growing_flower.crops
 
 import dev.q4niel.flourishing_fields.FlourishingFields
+import dev.q4niel.flourishing_fields.growing_flower.crops.peony.GrowingPeonyLowerCropBlock
+import dev.q4niel.flourishing_fields.growing_flower.crops.peony.GrowingPeonyUpperCropBlock
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap
 import net.minecraft.block.AbstractBlock
 import net.minecraft.block.Block
@@ -20,11 +22,15 @@ import java.util.function.Function
 
 object GrowingFlowerCrops {
     val POPPY: Block = regCrop("poppy", ::GrowingPoppyCropBlock);
-    val PEONY: Block = regCrop("peony", ::GrowingPeonyCropBlock);
+
+    val PEONY_LOWER: Block = regCrop("peony_lower", ::GrowingPeonyLowerCropBlock);
+    val PEONY_UPPER: Block = regCrop("peony_upper", ::GrowingPeonyUpperCropBlock);
 
     fun init(): Unit {
         fixLayerMap(POPPY);
-        fixLayerMap(PEONY);
+
+        fixLayerMap(PEONY_LOWER);
+        fixLayerMap(PEONY_UPPER);
     }
 
     private fun fixLayerMap(crop: Block): Unit = BlockRenderLayerMap.INSTANCE.putBlock(crop, RenderLayer.getCutout());

@@ -18,6 +18,8 @@ def flowerBlockModel() -> None:
             file.seek(0)
 
             content = content.replace("crop", "cross")
+            content = content.replace("cube_all", "cross")
+            content = content.replace("all", "cross")
 
             file.write(content)
             file.truncate()

@@ -1,7 +1,7 @@
 package dev.q4niel.flourishing_fields.datagen
 
 import dev.q4niel.flourishing_fields.growing_flower.GrowingFlowerCropBlock
-import dev.q4niel.flourishing_fields.growing_flower.GrowingTallFlowerCropBlock
+import dev.q4niel.flourishing_fields.growing_flower.GrowingTallFlowerLowerCropBlock
 import dev.q4niel.flourishing_fields.growing_flower.crops.GrowingFlowerCrops
 import dev.q4niel.flourishing_fields.growing_flower.seeds.GrowingFlowerSeeds
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
@@ -32,10 +32,10 @@ class ModLootTableProvider (
 ) {
     override fun generate() {
         genShortFlowerCrop(GrowingFlowerCrops.POPPY, GrowingFlowerSeeds.POPPY, Items.POPPY);
-        genTallFlowerCrop(GrowingFlowerCrops.PEONY, GrowingFlowerSeeds.PEONY, Items.PEONY);
+        genTallFlowerLowerCrop(GrowingFlowerCrops.PEONY_LOWER, GrowingFlowerSeeds.PEONY, Items.PEONY);
     }
 
-    private fun genTallFlowerCrop (
+    private fun genTallFlowerLowerCrop (
         crop: Block,
         seeds: Item,
         flower: Item
@@ -43,8 +43,8 @@ class ModLootTableProvider (
         crop,
         seeds,
         flower,
-        GrowingTallFlowerCropBlock.AGE,
-        GrowingTallFlowerCropBlock.MAX_AGE
+        GrowingTallFlowerLowerCropBlock.AGE,
+        GrowingTallFlowerLowerCropBlock.MAX_AGE
     );
 
     private fun genShortFlowerCrop (

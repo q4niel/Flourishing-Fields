@@ -5,5 +5,5 @@ import dev.q4niel.flourishing_fields.growing_flower.crops.GrowingFlowerCrops
 import net.minecraft.block.Block
 
 class GrowingPeonySeedsItem(settings: Settings?) : GrowingFlowerSeedsItem(settings) {
-    override val crop: Block = GrowingFlowerCrops.PEONY;
+    override val crop: Block = GrowingFlowerCrops.PEONY_LOWER;
 }
