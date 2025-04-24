@@ -20,10 +20,38 @@ abstract class GrowingTallFlowerLowerCropBlock(settings: Settings?) : GrowingFlo
     override fun getAgeProperty(): IntProperty = AGE;
     override fun getMaxAge(): Int = MAX_AGE;
 
+    private fun tryGrowUpperBlock(world: ServerWorld?, lowerPos: BlockPos?): Unit? = FlourishingFields.serverExec Runnable@ {
+        if (!isMature(world?.getBlockState(lowerPos))) return@Runnable;
+
+        world?.setBlockState (
+            lowerPos?.up(),
+            getUpperBlock().defaultState,
+            3
+        );
+    };
+
     override fun appendProperties(builder: StateManager.Builder<Block, BlockState>?): Unit {
         builder?.add(AGE);
     }
 
+
+    override fun randomTick(state: BlockState?, world: ServerWorld?, pos: BlockPos?, random: Random?) {
+        FlourishingFields.serverExec Runnable@ {
+            val age: Int = getAge(state);
+            if (world?.getBaseLightLevel(pos, 0)!! < 9 || age >= getMaxAge()) return@Runnable;
+
+            val moisture: Float = getAvailableMoisture(this, world, pos);
+            if (random?.nextInt(((25F / moisture) + 1).toInt()) != 0) return@Runnable;
+
+            if (true == world.getBlockState(pos?.up())?.isAir) {
+                world.setBlockState(pos, this.withAge(age + 1), 2);
+                tryGrowUpperBlock(world, pos);
+            }
+            else {
+                world.breakBlock(pos, false);
+            }
+        };
+    }
     override fun grow (
         world: ServerWorld?,
         random: Random?,
@@ -37,14 +65,7 @@ abstract class GrowingTallFlowerLowerCropBlock(settings: Settings?) : GrowingFlo
                 world.breakBlock(pos, true);
                 return@Runnable;
             }
-
-            if (!isMature(world?.getBlockState(pos))) return@Runnable;
-
-            world?.setBlockState (
-                pos?.up(),
-                getUpperBlock().defaultState,
-                3
-            );
+            tryGrowUpperBlock(world, pos);
         };
     }
 
