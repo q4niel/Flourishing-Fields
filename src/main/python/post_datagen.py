@@ -47,9 +47,9 @@ def main() -> None:
     tallMiddleStages: List[str] = []
 
     for name in os.listdir(getDirectory()):
-        replaceInFile(name, "crop", "cross")
-        replaceInFile(name, "cube_all", "cross")
-        replaceInFile(name, "all", "cross")
+        replaceInFile(name, "crop\"", "cross\"")
+        replaceInFile(name, "cube_all\"", "cross\"")
+        replaceInFile(name, "all\"", "cross\"")
 
         if "_stage0" in name:
             replaceInFile(name, name[:-5], "flower_sprout")

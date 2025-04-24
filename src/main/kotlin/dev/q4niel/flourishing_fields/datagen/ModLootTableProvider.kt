@@ -31,7 +31,23 @@ class ModLootTableProvider (
     registryLookup
 ) {
     override fun generate() {
+        genFlowerCrop(GrowingFlowerCrops.DANDELION, GrowingFlowerSeeds.DANDELION, Items.DANDELION);
         genFlowerCrop(GrowingFlowerCrops.POPPY, GrowingFlowerSeeds.POPPY, Items.POPPY);
+        genFlowerCrop(GrowingFlowerCrops.BLUE_ORCHID, GrowingFlowerSeeds.BLUE_ORCHID, Items.BLUE_ORCHID);
+        genFlowerCrop(GrowingFlowerCrops.ALLIUM, GrowingFlowerSeeds.ALLIUM, Items.ALLIUM);
+        genFlowerCrop(GrowingFlowerCrops.AZURE_BLUET, GrowingFlowerSeeds.AZURE_BLUET, Items.AZURE_BLUET);
+        genFlowerCrop(GrowingFlowerCrops.RED_TULIP, GrowingFlowerSeeds.RED_TULIP, Items.RED_TULIP);
+        genFlowerCrop(GrowingFlowerCrops.ORANGE_TULIP, GrowingFlowerSeeds.ORANGE_TULIP, Items.ORANGE_TULIP);
+        genFlowerCrop(GrowingFlowerCrops.WHITE_TULIP, GrowingFlowerSeeds.WHITE_TULIP, Items.WHITE_TULIP);
+        genFlowerCrop(GrowingFlowerCrops.PINK_TULIP, GrowingFlowerSeeds.PINK_TULIP, Items.PINK_TULIP);
+        genFlowerCrop(GrowingFlowerCrops.OXEYE_DAISY, GrowingFlowerSeeds.OXEYE_DAISY, Items.OXEYE_DAISY);
+        genFlowerCrop(GrowingFlowerCrops.CORNFLOWER, GrowingFlowerSeeds.CORNFLOWER, Items.CORNFLOWER);
+        genFlowerCrop(GrowingFlowerCrops.LILY_OF_THE_VALLEY, GrowingFlowerSeeds.LILY_OF_THE_VALLEY, Items.LILY_OF_THE_VALLEY);
+        genFlowerCrop(GrowingFlowerCrops.WITHER_ROSE, GrowingFlowerSeeds.WITHER_ROSE, Items.WITHER_ROSE);
+
+        genTallFlowerCrop(GrowingFlowerCrops.SUNFLOWER, GrowingFlowerSeeds.SUNFLOWER, Items.SUNFLOWER);
+        genTallFlowerCrop(GrowingFlowerCrops.LILAC, GrowingFlowerSeeds.LILAC, Items.LILAC);
+        genTallFlowerCrop(GrowingFlowerCrops.ROSE_BUSH, GrowingFlowerSeeds.ROSE_BUSH, Items.ROSE_BUSH);
         genTallFlowerCrop(GrowingFlowerCrops.PEONY, GrowingFlowerSeeds.PEONY, Items.PEONY);
     }
 

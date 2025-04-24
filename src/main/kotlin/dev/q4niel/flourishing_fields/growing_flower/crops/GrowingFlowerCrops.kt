@@ -1,8 +1,8 @@
 package dev.q4niel.flourishing_fields.growing_flower.crops
 
 import dev.q4niel.flourishing_fields.FlourishingFields
+import dev.q4niel.flourishing_fields.growing_flower.GrowingTallFlowerUpperCropBlock
 import dev.q4niel.flourishing_fields.growing_flower.crops.peony.GrowingPeonyLowerCropBlock
-import dev.q4niel.flourishing_fields.growing_flower.crops.peony.GrowingPeonyUpperCropBlock
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap
 import net.minecraft.block.AbstractBlock
 import net.minecraft.block.Block
@@ -26,18 +26,65 @@ object GrowingFlowerCrops {
         val LOWER: Block
     );
 
+    val DANDELION: Block = regCrop("dandelion", ::GrowingDandelionCropBlock);
     val POPPY: Block = regCrop("poppy", ::GrowingPoppyCropBlock);
+    val BLUE_ORCHID: Block = regCrop("blue_orchid", ::GrowingBlueOrchidCropBlock);
+    val ALLIUM: Block = regCrop("allium", ::GrowingAlliumCropBlock);
+    val AZURE_BLUET: Block = regCrop("azure_bluet", ::GrowingAzureBluetCropBlock);
+    val RED_TULIP: Block = regCrop("red_tulip", ::GrowingRedTulipCropBlock);
+    val ORANGE_TULIP: Block = regCrop("orange_tulip", ::GrowingOrangeTulipCropBlock);
+    val WHITE_TULIP: Block = regCrop("white_tulip", ::GrowingWhiteTulipCropBlock);
+    val PINK_TULIP: Block = regCrop("pink_tulip", ::GrowingPinkTulipCropBlock);
+    val OXEYE_DAISY: Block = regCrop("oxeye_daisy", ::GrowingOxeyeDaisyCropBlock);
+    val CORNFLOWER: Block = regCrop("cornflower", ::GrowingCornflowerCropBlock);
+    val LILY_OF_THE_VALLEY: Block = regCrop("lily_of_the_valley", ::GrowingLilyOfTheValleyCropBlock);
+    val WITHER_ROSE: Block = regCrop("wither_rose", ::GrowingWitherRoseCropBlock);
 
+    val SUNFLOWER: TallCrop = regTallCrop (
+        "sunflower_upper", ::GrowingTallFlowerUpperCropBlock,
+        "sunflower_lower", ::GrowingSunflowerLowerCropBlock
+    );
+    val LILAC: TallCrop = regTallCrop (
+        "lilac_upper", ::GrowingTallFlowerUpperCropBlock,
+        "lilac_lower", ::GrowingLilacLowerCropBlock
+    );
+    val ROSE_BUSH: TallCrop = regTallCrop (
+        "rose_bush_upper", ::GrowingTallFlowerUpperCropBlock,
+        "rose_bush_lower", ::GrowingRoseBushLowerCropBlock
+    );
     val PEONY: TallCrop = regTallCrop (
-        "peony_upper", ::GrowingPeonyUpperCropBlock,
+        "peony_upper", ::GrowingTallFlowerUpperCropBlock,
         "peony_lower", ::GrowingPeonyLowerCropBlock
     );
 
     fun init(): Unit {
-        fixLayerMap(POPPY);
+        for (c: Block in arrayOf (
+            DANDELION,
+            POPPY,
+            BLUE_ORCHID,
+            ALLIUM,
+            AZURE_BLUET,
+            RED_TULIP,
+            ORANGE_TULIP,
+            WHITE_TULIP,
+            PINK_TULIP,
+            OXEYE_DAISY,
+            CORNFLOWER,
+            LILY_OF_THE_VALLEY,
+            WITHER_ROSE
+        )) {
+            fixLayerMap(c);
+        }
 
-        fixLayerMap(PEONY.LOWER);
-        fixLayerMap(PEONY.UPPER);
+        for (c: TallCrop in arrayOf (
+            SUNFLOWER,
+            LILAC,
+            ROSE_BUSH,
+            PEONY
+        )) {
+            fixLayerMap(c.LOWER);
+            fixLayerMap(c.UPPER);
+        }
     }
 
     private fun fixLayerMap(crop: Block): Unit = BlockRenderLayerMap.INSTANCE.putBlock(crop, RenderLayer.getCutout());
