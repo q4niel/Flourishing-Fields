@@ -1,30 +1,69 @@
 import os
+from typing import List, Callable
 
-def modelAsCross(content:str) -> str:
-    content = content.replace("crop", "cross")
-    content = content.replace("cube_all", "cross")
-    content = content.replace("all", "cross")
-    return content
+def getDirectory() -> str:
+    return "generated/assets/flourishing_fields/models/block"
 
-def stage0AsSprout(content:str, filename:str) -> str:
-    filename = filename[:-5]
-    if not "_stage0" in filename: return content
-    return content.replace(filename, "flower_sprout")
+def readFile(file: str) -> str:
+    with open(os.path.join(getDirectory(), file)) as f:
+        return f.read()
 
-if __name__ == "__main__":
+def writeFile(file: str, data: str) -> None:
+    with open(os.path.join(getDirectory(), file), "r+") as file:
+        file.write(data)
+        file.truncate()
+    return
+
+def replaceInFile(file: str, old: str, new: str) -> None:
+    writeFile(file, readFile(file).replace(old, new))
+
+def ofVanilla(name: str) -> str:
+    for flower in [
+        "dandelion",
+        "poppy",
+        "blue_orchid",
+        "allium",
+        "azure_bluet",
+        "red_tulip",
+        "orange_tulip",
+        "white_tulip",
+        "pink_tulip",
+        "oxeye_daisy",
+        "cornflower",
+        "lily_of_the_valley",
+        "wither_rose",
+        "sunflower",
+        "lilac",
+        "rose_bush",
+        "peony"
+    ]:
+        if flower in name:
+            return "minecraft:block/" + flower
+    return ""
+
+def main() -> None:
     os.chdir(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+    modId: str = "flourishing_fields:block/"
+    tallMiddleStages: List[str] = []
 
-    dir = "generated/assets/flourishing_fields/models/block"
-    for filename in os.listdir(dir):
-        fullPath = os.path.join(dir, filename)
-        if not os.path.isfile(fullPath): continue
+    for name in os.listdir(getDirectory()):
+        replaceInFile(name, "crop", "cross")
+        replaceInFile(name, "cube_all", "cross")
+        replaceInFile(name, "all", "cross")
 
-        with open(fullPath, "r+") as file:
-            content = file.read()
-            file.seek(0)
+        if "_stage0" in name:
+            replaceInFile(name, name[:-5], "flower_sprout")
 
-            content = modelAsCross(content)
-            content = stage0AsSprout(content, filename)
+        if "_upper" in name:
+            replaceInFile(name, modId + name[:-5], ofVanilla(name) + "_top")
 
-            file.write(content)
-            file.truncate()
+        if "_stage2" in name:
+            replaceInFile(name, modId + name[:-5], ofVanilla(name) + "_bottom")
+            tallMiddleStages.append(name.replace("_stage2", "_stage1"))
+
+    for name in os.listdir(getDirectory()):
+        if not "_stage1" in name or name in tallMiddleStages: continue
+        replaceInFile(name, modId + name[:-5], ofVanilla(name))
+
+    return
+if __name__ == "__main__": main()
