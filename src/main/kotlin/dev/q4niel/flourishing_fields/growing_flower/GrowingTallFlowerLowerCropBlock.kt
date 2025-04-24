@@ -33,6 +33,11 @@ abstract class GrowingTallFlowerLowerCropBlock(settings: Settings?) : GrowingFlo
         super.grow(world, random, pos, state);
 
         FlourishingFields.serverExec Runnable@ {
+            if (false == world?.getBlockState(pos?.up())?.isAir) {
+                world.breakBlock(pos, true);
+                return@Runnable;
+            }
+
             if (!isMature(world?.getBlockState(pos))) return@Runnable;
 
             world?.setBlockState (
@@ -46,8 +51,9 @@ abstract class GrowingTallFlowerLowerCropBlock(settings: Settings?) : GrowingFlo
     override fun onStateReplaced(state: BlockState?, world: ServerWorld?, pos: BlockPos?, moved: Boolean) {
         super.onStateReplaced(state, world, pos, moved)
 
-        FlourishingFields.serverExec {
-            world?.breakBlock(pos?.up(), false);
+        FlourishingFields.serverExec Runnable@ {
+            if (world?.getBlockState(pos?.up())?.block !is GrowingTallFlowerUpperCropBlock) return@Runnable;
+            world.breakBlock(pos?.up(), false);
         };
     }
 }
