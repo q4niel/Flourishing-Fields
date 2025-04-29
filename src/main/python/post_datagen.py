@@ -22,7 +22,7 @@ def dumpFlowerBlockstate(flower: str) -> None:
     return
 
 def dumpTallFlowerBottomBlockstate(flower: str) -> None:
-    with open(blockstatesDir() + "/" + flower + "_lower.json", "w") as file:
+    with open(blockstatesDir() + "/" + flower + "_bottom.json", "w") as file:
         json.dump({
             "variants": {
                 "age=0": {"model": blockOfMod() + "flower_sprout"},
@@ -33,7 +33,7 @@ def dumpTallFlowerBottomBlockstate(flower: str) -> None:
     return
 
 def dumpTallFlowerTopBlockstate(flower: str) -> None:
-    with open(blockstatesDir() + "/" + flower + "_upper.json", "w") as file:
+    with open(blockstatesDir() + "/" + flower + "_top.json", "w") as file:
         json.dump({
             "variants": {
                 "": {"model": blockOfVanilla() + flower + "_top"}

@@ -5,5 +5,5 @@ import dev.q4niel.flourishing_fields.growing_flower.crops.GrowingFlowerCrops
 import net.minecraft.block.Block
 
 class GrowingRoseBushSeedsItem(settings: Settings?) : GrowingFlowerSeedsItem(settings) {
-    override val crop: Block = GrowingFlowerCrops.ROSE_BUSH.LOWER;
+    override val crop: Block = GrowingFlowerCrops.ROSE_BUSH.BOTTOM;
 }

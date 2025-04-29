@@ -1,8 +1,8 @@
 package dev.q4niel.flourishing_fields.growing_flower.crops
 
 import dev.q4niel.flourishing_fields.FlourishingFields
-import dev.q4niel.flourishing_fields.growing_flower.GrowingTallFlowerUpperCropBlock
-import dev.q4niel.flourishing_fields.growing_flower.crops.peony.GrowingPeonyLowerCropBlock
+import dev.q4niel.flourishing_fields.growing_flower.GrowingTallFlowerTopCropBlock
+import dev.q4niel.flourishing_fields.growing_flower.crops.peony.GrowingPeonyBottomCropBlock
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap
 import net.minecraft.block.AbstractBlock
 import net.minecraft.block.Block
@@ -22,8 +22,8 @@ import java.util.function.Function
 
 object GrowingFlowerCrops {
     data class TallCrop (
-        val UPPER: Block,
-        val LOWER: Block
+        val TOP: Block,
+        val BOTTOM: Block
     );
 
     val DANDELION: Block = regCrop("dandelion", ::GrowingDandelionCropBlock);
@@ -41,20 +41,20 @@ object GrowingFlowerCrops {
     val WITHER_ROSE: Block = regCrop("wither_rose", ::GrowingWitherRoseCropBlock);
 
     val SUNFLOWER: TallCrop = regTallCrop (
-        "sunflower_upper", ::GrowingTallFlowerUpperCropBlock,
-        "sunflower_lower", ::GrowingSunflowerLowerCropBlock
+        "sunflower_top", ::GrowingTallFlowerTopCropBlock,
+        "sunflower_bottom", ::GrowingSunflowerBottomCropBlock
     );
     val LILAC: TallCrop = regTallCrop (
-        "lilac_upper", ::GrowingTallFlowerUpperCropBlock,
-        "lilac_lower", ::GrowingLilacLowerCropBlock
+        "lilac_top", ::GrowingTallFlowerTopCropBlock,
+        "lilac_bottom", ::GrowingLilacBottomCropBlock
     );
     val ROSE_BUSH: TallCrop = regTallCrop (
-        "rose_bush_upper", ::GrowingTallFlowerUpperCropBlock,
-        "rose_bush_lower", ::GrowingRoseBushLowerCropBlock
+        "rose_bush_top", ::GrowingTallFlowerTopCropBlock,
+        "rose_bush_bottom", ::GrowingRoseBushBottomCropBlock
     );
     val PEONY: TallCrop = regTallCrop (
-        "peony_upper", ::GrowingTallFlowerUpperCropBlock,
-        "peony_lower", ::GrowingPeonyLowerCropBlock
+        "peony_top", ::GrowingTallFlowerTopCropBlock,
+        "peony_bottom", ::GrowingPeonyBottomCropBlock
     );
 
     fun init(): Unit {
@@ -82,8 +82,8 @@ object GrowingFlowerCrops {
             ROSE_BUSH,
             PEONY
         )) {
-            fixLayerMap(c.LOWER);
-            fixLayerMap(c.UPPER);
+            fixLayerMap(c.BOTTOM);
+            fixLayerMap(c.TOP);
         }
     }
 

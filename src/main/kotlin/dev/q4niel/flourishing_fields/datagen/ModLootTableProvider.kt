@@ -1,7 +1,7 @@
 package dev.q4niel.flourishing_fields.datagen
 
 import dev.q4niel.flourishing_fields.growing_flower.GrowingFlowerCropBlock
-import dev.q4niel.flourishing_fields.growing_flower.GrowingTallFlowerLowerCropBlock
+import dev.q4niel.flourishing_fields.growing_flower.GrowingTallFlowerBottomCropBlock
 import dev.q4niel.flourishing_fields.growing_flower.crops.GrowingFlowerCrops
 import dev.q4niel.flourishing_fields.growing_flower.seeds.GrowingFlowerSeeds
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
@@ -57,20 +57,20 @@ class ModLootTableProvider (
         flower: Item
     ): Unit {
         genFlowerCrop (
-            tallCrop.LOWER,
+            tallCrop.BOTTOM,
             seeds,
             flower,
-            GrowingTallFlowerLowerCropBlock.AGE,
-            GrowingTallFlowerLowerCropBlock.MAX_AGE
+            GrowingTallFlowerBottomCropBlock.AGE,
+            GrowingTallFlowerBottomCropBlock.MAX_AGE
         )
 
         addDrop (
-            tallCrop.UPPER,
+            tallCrop.TOP,
             flowerCropDrops (
-                tallCrop.UPPER,
+                tallCrop.TOP,
                 flower,
                 seeds,
-                BlockStatePropertyLootCondition.builder(tallCrop.UPPER)
+                BlockStatePropertyLootCondition.builder(tallCrop.TOP)
             )
         );
     }

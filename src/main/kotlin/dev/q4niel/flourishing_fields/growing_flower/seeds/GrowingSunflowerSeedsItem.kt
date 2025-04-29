@@ -5,5 +5,5 @@ import dev.q4niel.flourishing_fields.growing_flower.crops.GrowingFlowerCrops
 import net.minecraft.block.Block
 
 class GrowingSunflowerSeedsItem(settings: Settings?) : GrowingFlowerSeedsItem(settings) {
-    override val crop: Block = GrowingFlowerCrops.SUNFLOWER.LOWER;
+    override val crop: Block = GrowingFlowerCrops.SUNFLOWER.BOTTOM;
 }

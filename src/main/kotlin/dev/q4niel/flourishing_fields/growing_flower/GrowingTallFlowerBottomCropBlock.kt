@@ -9,7 +9,7 @@ import net.minecraft.state.property.IntProperty
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.random.Random
 
-abstract class GrowingTallFlowerLowerCropBlock(settings: Settings?) : GrowingFlowerCropBlock(settings) {
+abstract class GrowingTallFlowerBottomCropBlock(settings: Settings?) : GrowingFlowerCropBlock(settings) {
     companion object {
         const val MAX_AGE: Int = 2;
         val AGE: IntProperty = IntProperty.of("age", 0, 2);
@@ -73,7 +73,7 @@ abstract class GrowingTallFlowerLowerCropBlock(settings: Settings?) : GrowingFlo
         super.onStateReplaced(state, world, pos, moved)
 
         FlourishingFields.serverExec Runnable@ {
-            if (world?.getBlockState(pos?.up())?.block !is GrowingTallFlowerUpperCropBlock) return@Runnable;
+            if (world?.getBlockState(pos?.up())?.block !is GrowingTallFlowerTopCropBlock) return@Runnable;
             world.breakBlock(pos?.up(), false);
         };
     }

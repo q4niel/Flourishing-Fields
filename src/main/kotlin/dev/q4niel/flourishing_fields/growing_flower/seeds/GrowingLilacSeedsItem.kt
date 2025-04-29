@@ -5,5 +5,5 @@ import dev.q4niel.flourishing_fields.growing_flower.crops.GrowingFlowerCrops
 import net.minecraft.block.Block
 
 class GrowingLilacSeedsItem(settings: Settings?) : GrowingFlowerSeedsItem(settings) {
-    override val crop: Block = GrowingFlowerCrops.LILAC.LOWER;
+    override val crop: Block = GrowingFlowerCrops.LILAC.BOTTOM;
 }
