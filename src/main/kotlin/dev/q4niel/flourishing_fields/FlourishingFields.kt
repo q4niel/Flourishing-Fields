@@ -30,6 +30,7 @@ object FlourishingFields: ModInitializer {
 	override fun onInitialize(): Unit {
 		GrowingFlowerCrops.init();
 		GrowingFlowerSeeds.init();
+		ModLootTableModifiers.init();
 
 		ServerLifecycleEvents.SERVER_STARTED.register { server ->
 			_server = server;
