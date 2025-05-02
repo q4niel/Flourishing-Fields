@@ -11,6 +11,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.random.Random
 import net.minecraft.util.shape.VoxelShape
 import net.minecraft.world.BlockView
+import net.minecraft.world.World
 
 abstract class GrowingTallFlowerBottomCropBlock(settings: Settings?) : GrowingFlowerCropBlock(settings) {
     companion object {
@@ -18,7 +19,7 @@ abstract class GrowingTallFlowerBottomCropBlock(settings: Settings?) : GrowingFl
         val AGE: IntProperty = IntProperty.of("age", 0, 2);
     }
 
-    override val FULL_SHAPE: VoxelShape = Block.createCubeShape(16.0);
+    override val FULL_SHAPE: VoxelShape = createCubeShape(16.0);
 
     abstract fun getMidShape(): VoxelShape;
 
@@ -88,8 +89,14 @@ abstract class GrowingTallFlowerBottomCropBlock(settings: Settings?) : GrowingFl
         };
     }
 
-    override fun onStateReplaced(state: BlockState?, world: ServerWorld?, pos: BlockPos?, moved: Boolean) {
-        super.onStateReplaced(state, world, pos, moved)
+    override fun onStateReplaced(
+        state: BlockState?,
+        world: World?,
+        pos: BlockPos?,
+        newState: BlockState?,
+        moved: Boolean
+    ) {
+        super.onStateReplaced(state, world, pos, newState, moved)
 
         FlourishingFields.serverExec Runnable@ {
             if (world?.getBlockState(pos?.up())?.block !is GrowingTallFlowerTopCropBlock) return@Runnable;
