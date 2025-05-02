@@ -10,7 +10,8 @@ import net.minecraft.server.MinecraftServer
 import org.slf4j.LoggerFactory
 
 object FlourishingFields: ModInitializer {
-  const val MOD_ID: String = "flourishing_fields";
+	const val MOD_ID: String = "flourishing_fields";
+
 	fun print(value: String): Unit = _logger.info(value);
 
 	fun getServer(): MinecraftServer? = _server;
