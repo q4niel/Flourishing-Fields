@@ -68,7 +68,7 @@ object ModLootTableModifiers {
             .build()
         else LootTable.builder()
             .pool(_seedsPool(seedsItem).build())
-            .pool(_itemPool(seedsItem).build())
+            .pool(_itemPool(flowerItem).build())
             .build()
     ;
     private fun _chance(chance: Float): LootCondition.Builder = RandomChanceLootCondition.builder(chance);

@@ -3,16 +3,35 @@ package dev.q4niel.flourishing_fields.growing_flower
 import dev.q4niel.flourishing_fields.FlourishingFields
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
+import net.minecraft.block.ShapeContext
 import net.minecraft.server.world.ServerWorld
 import net.minecraft.state.StateManager
 import net.minecraft.state.property.IntProperty
 import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.random.Random
+import net.minecraft.util.shape.VoxelShape
+import net.minecraft.world.BlockView
 
 abstract class GrowingTallFlowerBottomCropBlock(settings: Settings?) : GrowingFlowerCropBlock(settings) {
     companion object {
         const val MAX_AGE: Int = 2;
         val AGE: IntProperty = IntProperty.of("age", 0, 2);
+    }
+
+    override val FULL_SHAPE: VoxelShape = Block.createCubeShape(16.0);
+
+    abstract fun getMidShape(): VoxelShape;
+
+    override fun getOutlineShape (
+        state: BlockState,
+        world: BlockView,
+        pos: BlockPos,
+        context: ShapeContext
+    ): VoxelShape? = when (getAge(state)) {
+        0 -> SPROUT_SHAPE
+        1 -> getMidShape()
+        2 -> FULL_SHAPE
+        else -> null
     }
 
     abstract fun getUpperBlock(): Block;
