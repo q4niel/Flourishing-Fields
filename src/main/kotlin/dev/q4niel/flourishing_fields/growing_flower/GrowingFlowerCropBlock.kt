@@ -14,8 +14,8 @@ abstract class GrowingFlowerCropBlock(settings: Settings?) : CropBlock(settings)
         val AGE: IntProperty = IntProperty.of("age", 0, 1);
     }
 
-    protected val SPROUT_SHAPE: VoxelShape = Block.createColumnShape(6.0, 0.0, 5.0);
-    protected open val FULL_SHAPE: VoxelShape = Block.createColumnShape(6.0, 0.0, 10.0);
+    protected val SPROUT_SHAPE: VoxelShape = createColumnShape(6.0, 0.0, 5.0);
+    protected open val FULL_SHAPE: VoxelShape = createColumnShape(6.0, 0.0, 10.0);
 
     abstract override fun getSeedsItem(): ItemConvertible;
 
