@@ -88,7 +88,7 @@ object ModLootTableModifiers {
         LootContext.EntityTarget.THIS,
         EntityPredicate.Builder.create().type (
             EntityTypePredicate.create (
-                FlourishingFields.getServer()?.getWorld(World.OVERWORLD)?.registryManager?.getEntryOrThrow(RegistryKeys.ENTITY_TYPE)?.value(),
+                FlourishingFields.getServer()?.getWorld(World.OVERWORLD)?.registryManager?.getOrThrow(RegistryKeys.ENTITY_TYPE),
                 EntityType.PLAYER
             )
         ).build()
