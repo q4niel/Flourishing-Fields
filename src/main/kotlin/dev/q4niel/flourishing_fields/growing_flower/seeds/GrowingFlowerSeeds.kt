@@ -1,8 +1,11 @@
 package dev.q4niel.flourishing_fields.growing_flower.seeds
 
 import dev.q4niel.flourishing_fields.FlourishingFields
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries
+import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents
 import net.minecraft.item.Item
 import net.minecraft.item.Item.Settings
+import net.minecraft.item.ItemGroups
 import net.minecraft.registry.Registries
 import net.minecraft.registry.Registry
 import net.minecraft.registry.RegistryKey
@@ -30,7 +33,30 @@ object GrowingFlowerSeeds {
     val ROSE_BUSH: Item = reg("rose_bush_seeds", ::GrowingRoseBushSeedsItem, Settings());
     val PEONY: Item = reg("peony_seeds", ::GrowingPeonySeedsItem, Settings());
 
-    fun init(): Unit? = null;
+    fun init(): Unit {
+        ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register {
+            entries: FabricItemGroupEntries
+            ->
+
+            entries.add(DANDELION);
+            entries.add(POPPY);
+            entries.add(BLUE_ORCHID);
+            entries.add(ALLIUM);
+            entries.add(AZURE_BLUET);
+            entries.add(RED_TULIP);
+            entries.add(ORANGE_TULIP);
+            entries.add(WHITE_TULIP);
+            entries.add(PINK_TULIP);
+            entries.add(OXEYE_DAISY);
+            entries.add(CORNFLOWER);
+            entries.add(LILY_OF_THE_VALLEY);
+            entries.add(WITHER_ROSE);
+            entries.add(SUNFLOWER);
+            entries.add(LILAC);
+            entries.add(ROSE_BUSH);
+            entries.add(PEONY);
+        };
+    };
 
     private fun reg (
         name: String,
