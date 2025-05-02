@@ -10,7 +10,6 @@ val GROWING_FLOWER_PLANTABLES: Array<Block> = arrayOf (
     Blocks.DIRT,
     Blocks.COARSE_DIRT,
     Blocks.ROOTED_DIRT,
-    Blocks.FARMLAND,
     Blocks.MUD,
     Blocks.MOSS_BLOCK,
     Blocks.PALE_MOSS_BLOCK
