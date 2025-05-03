@@ -11,6 +11,5 @@ val GROWING_FLOWER_PLANTABLES: Array<Block> = arrayOf (
     Blocks.COARSE_DIRT,
     Blocks.ROOTED_DIRT,
     Blocks.MUD,
-    Blocks.MOSS_BLOCK,
-    Blocks.PALE_MOSS_BLOCK
+    Blocks.MOSS_BLOCK
 );

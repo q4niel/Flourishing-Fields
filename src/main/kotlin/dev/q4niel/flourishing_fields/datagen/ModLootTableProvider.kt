@@ -103,7 +103,7 @@ class ModLootTableProvider (
         seeds: Item,
         condition: LootCondition.Builder
     ): LootTable.Builder {
-        val impl: RegistryWrapper.Impl<Enchantment> = this.registries.getOrThrow(RegistryKeys.ENCHANTMENT);
+        val impl: RegistryWrapper.Impl<Enchantment> = this.registryLookup.getWrapperOrThrow(RegistryKeys.ENCHANTMENT);
 
         return this.applyExplosionDecay (
             crop,
@@ -116,7 +116,7 @@ class ModLootTableProvider (
                 )
                 .pool(LootPool.builder()
                     .conditionally(condition)
-                    .conditionally(createWithShearsCondition())
+                    .conditionally(createWithShearsOrSilkTouchCondition())
                     .with(ItemEntry.builder(product))
                 )
         ) as LootTable.Builder;

@@ -18,7 +18,6 @@ import net.minecraft.registry.RegistryKey
 import net.minecraft.registry.RegistryKeys
 import net.minecraft.sound.BlockSoundGroup
 import net.minecraft.util.Identifier
-import java.util.function.Function
 
 object GrowingFlowerCrops {
     data class TallCrop (
@@ -26,35 +25,35 @@ object GrowingFlowerCrops {
         val BOTTOM: Block
     );
 
-    val DANDELION: Block = regCrop("dandelion", ::GrowingDandelionCropBlock);
-    val POPPY: Block = regCrop("poppy", ::GrowingPoppyCropBlock);
-    val BLUE_ORCHID: Block = regCrop("blue_orchid", ::GrowingBlueOrchidCropBlock);
-    val ALLIUM: Block = regCrop("allium", ::GrowingAlliumCropBlock);
-    val AZURE_BLUET: Block = regCrop("azure_bluet", ::GrowingAzureBluetCropBlock);
-    val RED_TULIP: Block = regCrop("red_tulip", ::GrowingRedTulipCropBlock);
-    val ORANGE_TULIP: Block = regCrop("orange_tulip", ::GrowingOrangeTulipCropBlock);
-    val WHITE_TULIP: Block = regCrop("white_tulip", ::GrowingWhiteTulipCropBlock);
-    val PINK_TULIP: Block = regCrop("pink_tulip", ::GrowingPinkTulipCropBlock);
-    val OXEYE_DAISY: Block = regCrop("oxeye_daisy", ::GrowingOxeyeDaisyCropBlock);
-    val CORNFLOWER: Block = regCrop("cornflower", ::GrowingCornflowerCropBlock);
-    val LILY_OF_THE_VALLEY: Block = regCrop("lily_of_the_valley", ::GrowingLilyOfTheValleyCropBlock);
-    val WITHER_ROSE: Block = regCrop("wither_rose", ::GrowingWitherRoseCropBlock);
+    val DANDELION: Block = regCrop("dandelion", GrowingDandelionCropBlock(cropSettings()));
+    val POPPY: Block = regCrop("poppy", GrowingPoppyCropBlock(cropSettings()));
+    val BLUE_ORCHID: Block = regCrop("blue_orchid", GrowingBlueOrchidCropBlock(cropSettings()));
+    val ALLIUM: Block = regCrop("allium", GrowingAlliumCropBlock(cropSettings()));
+    val AZURE_BLUET: Block = regCrop("azure_bluet", GrowingAzureBluetCropBlock(cropSettings()));
+    val RED_TULIP: Block = regCrop("red_tulip", GrowingRedTulipCropBlock(cropSettings()));
+    val ORANGE_TULIP: Block = regCrop("orange_tulip", GrowingOrangeTulipCropBlock(cropSettings()));
+    val WHITE_TULIP: Block = regCrop("white_tulip", GrowingWhiteTulipCropBlock(cropSettings()));
+    val PINK_TULIP: Block = regCrop("pink_tulip", GrowingPinkTulipCropBlock(cropSettings()));
+    val OXEYE_DAISY: Block = regCrop("oxeye_daisy", GrowingOxeyeDaisyCropBlock(cropSettings()));
+    val CORNFLOWER: Block = regCrop("cornflower", GrowingCornflowerCropBlock(cropSettings()));
+    val LILY_OF_THE_VALLEY: Block = regCrop("lily_of_the_valley", GrowingLilyOfTheValleyCropBlock(cropSettings()));
+    val WITHER_ROSE: Block = regCrop("wither_rose", GrowingWitherRoseCropBlock(cropSettings()));
 
     val SUNFLOWER: TallCrop = regTallCrop (
-        "sunflower_top", ::GrowingTallFlowerTopCropBlock,
-        "sunflower_bottom", ::GrowingSunflowerBottomCropBlock
+        "sunflower_top", GrowingTallFlowerTopCropBlock(cropSettings()),
+        "sunflower_bottom", GrowingSunflowerBottomCropBlock(cropSettings())
     );
     val LILAC: TallCrop = regTallCrop (
-        "lilac_top", ::GrowingTallFlowerTopCropBlock,
-        "lilac_bottom", ::GrowingLilacBottomCropBlock
+        "lilac_top", GrowingTallFlowerTopCropBlock(cropSettings()),
+        "lilac_bottom", GrowingLilacBottomCropBlock(cropSettings())
     );
     val ROSE_BUSH: TallCrop = regTallCrop (
-        "rose_bush_top", ::GrowingTallFlowerTopCropBlock,
-        "rose_bush_bottom", ::GrowingRoseBushBottomCropBlock
+        "rose_bush_top", GrowingTallFlowerTopCropBlock(cropSettings()),
+        "rose_bush_bottom", GrowingRoseBushBottomCropBlock(cropSettings())
     );
     val PEONY: TallCrop = regTallCrop (
-        "peony_top", ::GrowingTallFlowerTopCropBlock,
-        "peony_bottom", ::GrowingPeonyBottomCropBlock
+        "peony_top", GrowingTallFlowerTopCropBlock(cropSettings()),
+        "peony_bottom", GrowingPeonyBottomCropBlock(cropSettings())
     );
 
     fun init(): Unit {
@@ -91,22 +90,21 @@ object GrowingFlowerCrops {
 
     private fun regCrop (
         name: String,
-        factory: Function<AbstractBlock.Settings, Block>
+        block: Block
     ): Block = reg (
         name,
         true,
-        factory,
-        cropSettings()
+        block
     );
 
     private fun regTallCrop (
         upperName: String,
-        upperFactory: Function<AbstractBlock.Settings, Block>,
+        upperBlock: Block,
         lowerName: String,
-        lowerFactory: Function<AbstractBlock.Settings, Block>
+        lowerBlock: Block
     ): TallCrop = TallCrop (
-        regCrop(upperName, upperFactory),
-        regCrop(lowerName, lowerFactory)
+        regCrop(upperName, upperBlock),
+        regCrop(lowerName, lowerBlock)
     );
 
     private fun cropSettings(): AbstractBlock.Settings = AbstractBlock.Settings
@@ -122,12 +120,8 @@ object GrowingFlowerCrops {
     private fun reg (
         name: String,
         withItem: Boolean,
-        factory: Function<AbstractBlock.Settings, Block>,
-        settings: AbstractBlock.Settings
+        block: Block
     ): Block {
-        val blockKey: RegistryKey<Block> = blockKey(name);
-        val block: Block = factory.apply(settings.registryKey(blockKey));
-
         if (withItem) regBlockItem(name, block);
 
         return Registry.register (
@@ -142,7 +136,7 @@ object GrowingFlowerCrops {
         itemKey(name),
         BlockItem (
             block,
-            Settings().registryKey(itemKey(name))
+            Settings()
         )
     );
 
