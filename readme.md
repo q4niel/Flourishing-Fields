@@ -22,6 +22,11 @@ When a bee collects nectar from a flower, there’s a small chance that the same
 }
 ```
 
+## Download
+- [Modrinth](https://modrinth.com/mod/flourishing-fields/versions)
+- [CurseForge](https://www.curseforge.com/minecraft/mc-mods/flourishing-fields/files/all?page=1&pageSize=20)
+- [GitHub](https://github.com/q4niel/Flourishing-Fields/releases/tag/0.6.0)
+
 ## **Credits**
 - **Art Assets** created by **Max Westerlund**.
 
