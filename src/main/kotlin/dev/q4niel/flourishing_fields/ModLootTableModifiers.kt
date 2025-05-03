@@ -78,7 +78,7 @@ object ModLootTableModifiers {
             ItemPredicate
                 .Builder
                 .create()
-                .items(Registries.ITEM, {Items.SHEARS})
+                .items(Items.SHEARS)
         );
 
         return if (value) condition else condition.invert();
@@ -87,10 +87,7 @@ object ModLootTableModifiers {
     private fun _byPlayer(): LootCondition.Builder = EntityPropertiesLootCondition.builder (
         LootContext.EntityTarget.THIS,
         EntityPredicate.Builder.create().type (
-            EntityTypePredicate.create (
-                FlourishingFields.getServer()?.getWorld(World.OVERWORLD)?.registryManager?.getEntryOrThrow(RegistryKeys.ENTITY_TYPE)?.value(),
-                EntityType.PLAYER
-            )
+            EntityTypePredicate.create(EntityType.PLAYER)
         ).build()
     );
 
