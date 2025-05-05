@@ -3,6 +3,7 @@ plugins {
     id 'maven-publish'
     id 'net.neoforged.moddev' version '2.0.86'
     id 'idea'
+    id 'org.jetbrains.kotlin.jvm' version '2.0.21'
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -19,10 +20,14 @@ group = mod_group_id
 
 repositories {
     mavenLocal()
+    maven {
+        name = 'Kotlin for Forge'
+        url = 'https://thedarkcolour.github.io/KotlinForForge/'
+    }
 }
 
 base {
-    archivesName = mod_id
+    archivesName = archive_name
 }
 
 // Mojang ships Java 21 to end users starting in 1.20.5, so mods should target Java 21.
@@ -112,6 +117,7 @@ configurations {
 }
 
 dependencies {
+    implementation 'thedarkcolour:kotlinforforge-neoforge:5.7.0'
     // Example optional mod dependency with JEI
     // The JEI API is declared for compile time use, while the full JEI artifact is used at runtime
     // compileOnly "mezz.jei:jei-${mc_version}-common-api:${jei_version}"
