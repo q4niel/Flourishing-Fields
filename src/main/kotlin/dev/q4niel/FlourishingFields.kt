@@ -1,6 +1,7 @@
 package dev.q4niel
 
-import dev.q4niel.item.Items
+import dev.q4niel.block.ModBlocks
+import dev.q4niel.item.ModItems
 import net.fabricmc.api.ModInitializer
 import org.slf4j.LoggerFactory
 
@@ -12,6 +13,8 @@ object FlourishingFields : ModInitializer {
 
 	override fun onInitialize(): Unit {
         EndpointHelper.init();
-        Items.init();
+        ModItems.init();
+        ModBlocks.init();
+        LootTableModifiers.init();
     }
 }

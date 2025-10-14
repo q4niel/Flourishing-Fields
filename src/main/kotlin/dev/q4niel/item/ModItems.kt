@@ -14,7 +14,7 @@ import net.minecraft.registry.RegistryKeys
 import net.minecraft.util.Identifier
 import java.util.function.Function
 
-object Items {
+object ModItems {
     public val alliumSeeds_: Item = regFlowerSeeds("allium_seeds", ::AlliumSeedsItem, Settings());
 
     public fun init(): Unit {
