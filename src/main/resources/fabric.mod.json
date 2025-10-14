@@ -11,19 +11,19 @@
 		"homepage": "https://modrinth.com/mod/flourishing-fields",
 		"sources": "https://github.com/q4niel/Flourishing-Fields"
 	},
-	"license": "Flourishing Fields License 1.0",
+	"license": "Flourishing Fields License",
 	"icon": "assets/flourishing_fields/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
 			{
-				"value": "dev.q4niel.flourishing_fields.FlourishingFields",
+				"value": "dev.q4niel.FlourishingFields",
 				"adapter": "kotlin"
 			}
 		],
 		"fabric-datagen": [
 			{
-				"value": "dev.q4niel.flourishing_fields.FlourishingFieldsDataGenerator",
+				"value": "dev.q4niel.FlourishingFieldsDataGenerator",
 				"adapter": "kotlin"
 			}
 		]
@@ -32,8 +32,8 @@
 		"flourishing_fields.mixins.json"
 	],
 	"depends": {
-		"fabricloader": ">=0.16.13",
-		"minecraft": "~1.21.5",
+		"fabricloader": ">=0.17.3",
+		"minecraft": "~1.21.10",
 		"java": ">=21",
 		"fabric-api": "*",
 		"fabric-language-kotlin": "*"

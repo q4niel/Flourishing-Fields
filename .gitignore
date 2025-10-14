@@ -1,13 +1,9 @@
-# fleet
-.fleet/
-
 # gradle
 
 .gradle/
 build/
 out/
 classes/
-src/main/generated/
 
 # eclipse
 
