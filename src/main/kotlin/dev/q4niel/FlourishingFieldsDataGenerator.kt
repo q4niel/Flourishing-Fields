@@ -1,8 +1,12 @@
 package dev.q4niel
 
+import dev.q4niel.datagen.ModelProvider
 import net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint
 import net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator
 
 object FlourishingFieldsDataGenerator : DataGeneratorEntrypoint {
-	override fun onInitializeDataGenerator(fabricDataGenerator: FabricDataGenerator) {}
+	override fun onInitializeDataGenerator(fabricDataGenerator: FabricDataGenerator) {
+        val pack_: FabricDataGenerator.Pack = fabricDataGenerator.createPack();
+        pack_.addProvider(::ModelProvider);
+    }
 }
