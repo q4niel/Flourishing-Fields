@@ -12,5 +12,7 @@ class ModModelProvider(output: FabricDataOutput) : FabricModelProvider(output) {
 
     override fun generateItemModels(generator: ItemModelGenerator) {
         generator.register(ModItems.alliumSeeds_, Models.GENERATED);
+
+        generator.register(ModItems.peonySeeds_, Models.GENERATED);
     }
 }

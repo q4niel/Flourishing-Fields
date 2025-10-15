@@ -1,5 +1,6 @@
 package dev.q4niel.block
 
+import dev.q4niel.flowerSeedsPlantables_
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.CropBlock
@@ -20,12 +21,17 @@ abstract class FlowerCropBlock(settings: Settings) : CropBlock(settings) {
     }
 
     val sproutShape_: VoxelShape = createColumnShape(6.0, 0.0, 5.0);
-    val fullShape_: VoxelShape = createColumnShape(6.0, 0.0, 10.0);
+    protected open val fullShape_: VoxelShape = createColumnShape(6.0, 0.0, 10.0);
 
     override fun getAgeProperty(): IntProperty = age_;
     override fun getMaxAge(): Int = maxAge_;
+
     override fun appendProperties(builder: StateManager.Builder<Block, BlockState>?): Unit {
         builder?.add(age_);
+    }
+
+    override fun canPlantOnTop(floor: BlockState?, world: BlockView?, pos: BlockPos?): Boolean {
+        return flowerSeedsPlantables_.contains(floor?.block);
     }
 
     override fun getOutlineShape (

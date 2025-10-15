@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "flourishing_fields:block/peony_bottom_middle"
+  }
+}

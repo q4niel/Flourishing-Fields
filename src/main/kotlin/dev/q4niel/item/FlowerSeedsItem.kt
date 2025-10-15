@@ -1,6 +1,7 @@
 package dev.q4niel.item
 
 import dev.q4niel.EndpointHelper
+import dev.q4niel.flowerSeedsPlantables_
 import net.minecraft.block.Block
 import net.minecraft.item.Item
 import net.minecraft.item.ItemUsageContext
@@ -11,9 +12,15 @@ import net.minecraft.util.Hand
 
 abstract class FlowerSeedsItem(settings: Item.Settings) : Item(settings) {
     abstract val crop_: Block;
+    protected open fun _guardClause(context: ItemUsageContext): Boolean = false;
 
     override fun useOnBlock(context: ItemUsageContext): ActionResult {
-        EndpointHelper.serverExec {
+        EndpointHelper.serverExec Runnable@ {
+            if (_guardClause(context)) return@Runnable;
+            if (!flowerSeedsPlantables_.contains (
+                context.world.getBlockState(context.blockPos).block
+            )) return@Runnable;
+
             context.world.setBlockState (
                 context.blockPos.up(),
                 crop_.defaultState,

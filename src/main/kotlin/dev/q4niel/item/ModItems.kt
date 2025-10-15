@@ -2,6 +2,7 @@ package dev.q4niel.item
 
 import dev.q4niel.FlourishingFields
 import dev.q4niel.item.flower_seeds.AlliumSeedsItem
+import dev.q4niel.item.tall_flower_seeds.PeonySeedsItem
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents
 import net.minecraft.item.Item
@@ -15,13 +16,18 @@ import net.minecraft.util.Identifier
 import java.util.function.Function
 
 object ModItems {
+    // Short Flowers
     public val alliumSeeds_: Item = regFlowerSeeds("allium_seeds", ::AlliumSeedsItem, Settings());
+
+    // Tall Flowers
+    public val peonySeeds_: Item = regFlowerSeeds("peony_seeds", ::PeonySeedsItem, Settings());
 
     public fun init(): Unit {
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.NATURAL).register {
             entries: FabricItemGroupEntries ->
 
             entries.add(alliumSeeds_);
+            entries.add(peonySeeds_);
         }
     }
 

@@ -2,6 +2,7 @@ package dev.q4niel.datagen
 
 import dev.q4niel.block.FlowerCropBlock
 import dev.q4niel.block.ModBlocks
+import dev.q4niel.block.TallFlowerBottomCropBlock
 import dev.q4niel.item.ModItems
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricBlockLootTableProvider
@@ -31,6 +32,8 @@ class ModLootTableProvider (
 ) {
     override fun generate() {
         _genFlowerCrop(ModBlocks.alliumCrop_, ModItems.alliumSeeds_, Items.ALLIUM);
+
+        _genTallFlowerCrop(ModBlocks.peony_, ModItems.peonySeeds_, Items.PEONY);
     }
 
     private fun _genFlowerCrop (
@@ -51,6 +54,30 @@ class ModLootTableProvider (
                 flower,
                 seeds,
                 builder
+            )
+        );
+    }
+
+    private fun _genTallFlowerCrop (
+        tallCrop: ModBlocks.TallCrop,
+        seeds: Item,
+        flower: Item
+    ): Unit {
+        _genFlowerCrop (
+            tallCrop.bottom_,
+            seeds,
+            flower,
+            TallFlowerBottomCropBlock.age_,
+            TallFlowerBottomCropBlock.maxAge_
+        )
+
+        addDrop (
+            tallCrop.top_,
+            _flowerCropDrops (
+                tallCrop.top_,
+                flower,
+                seeds,
+                BlockStatePropertyLootCondition.builder(tallCrop.top_)
             )
         );
     }
