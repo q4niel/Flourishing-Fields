@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "flourishing_fields:block/sunflower_bottom_middle"
+  }
+}

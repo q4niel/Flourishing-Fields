@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "flourishing_fields:block/flower_sprout"
+    },
+    "age=1": {
+      "model": "minecraft:block/wither_rose"
+    }
+  }
+}

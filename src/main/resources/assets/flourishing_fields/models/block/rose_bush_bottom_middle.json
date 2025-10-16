@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "flourishing_fields:block/rose_bush_bottom_middle"
+  }
+}

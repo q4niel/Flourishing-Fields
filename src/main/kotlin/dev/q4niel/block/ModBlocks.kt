@@ -1,8 +1,8 @@
 package dev.q4niel.block
 
 import dev.q4niel.FlourishingFields
-import dev.q4niel.block.short_flowers.AlliumCropBlock
-import dev.q4niel.block.tall_flowers.peony.PeonyBottomCropBlock
+import dev.q4niel.block.short_flowers.*
+import dev.q4niel.block.tall_flowers.*
 import net.fabricmc.fabric.api.client.rendering.v1.BlockRenderLayerMap
 import net.minecraft.block.AbstractBlock
 import net.minecraft.block.Block
@@ -26,15 +26,51 @@ object ModBlocks {
         val bottom_: Block
     );
 
+    // Short Flowers
     public val alliumCrop_: Block = _regCrop("allium", ::AlliumCropBlock);
+    public val azureBluetCrop_: Block = _regCrop("azure_bluet", ::AzureBluetCropBlock);
+    public val blueOrchidCrop_: Block = _regCrop("blue_orchid", ::BlueOrchidCropBlock);
+    public val cornflowerCrop_: Block = _regCrop("cornflower", ::CornflowerCropBlock);
+    public val dandelionCrop_: Block = _regCrop("dandelion", ::DandelionCropBlock);
+    public val lilyOfTheValleyCrop_: Block = _regCrop("lily_of_the_valley", ::LilyOfTheValleyCropBlock);
+    public val orangeTulipCrop_: Block = _regCrop("orange_tulip", ::OrangeTulipCropBlock);
+    public val oxeyeDaisyCrop_: Block = _regCrop("oxeye_daisy", ::OxeyeDaisyCropBlock);
+    public val pinkTulipCrop_: Block = _regCrop("pink_tulip", ::PinkTulipCropBlock);
+    public val poppyCrop_: Block = _regCrop("poppy", ::PoppyCropBlock);
+    public val redTulipCrop_: Block = _regCrop("red_tulip", ::RedTulipCropBlock);
+    public val whiteTulipCrop_: Block = _regCrop("white_tulip", ::WhiteTulipCropBlock);
+    public val witherRoseCrop_: Block = _regCrop("wither_rose", ::WitherRoseCropBlock);
 
-    public val peony_: TallCrop = _regTallCrop("peony_top", "peony_bottom", ::PeonyBottomCropBlock);
+    // Tall Flowers
+    public val lilacCrop_: TallCrop = _regTallCrop("lilac_top", "lilac_bottom", ::LilacBottomCropBlock);
+    public val peonyCrop_: TallCrop = _regTallCrop("peony_top", "peony_bottom", ::PeonyBottomCropBlock);
+    public val roseBushCrop_: TallCrop = _regTallCrop("rose_bush_top", "rose_bush_bottom", ::RoseBottomBushCropBlock);
+    public val sunflowerCrop_: TallCrop = _regTallCrop("sunflower_top", "sunflower_bottom", ::SunflowerBottomCropBlock);
 
     public fun init(): Unit {
         for (crop: Block in arrayOf (
             alliumCrop_,
-            peony_.top_,
-            peony_.bottom_
+            azureBluetCrop_,
+            blueOrchidCrop_,
+            cornflowerCrop_,
+            dandelionCrop_,
+            lilyOfTheValleyCrop_,
+            orangeTulipCrop_,
+            oxeyeDaisyCrop_,
+            pinkTulipCrop_,
+            poppyCrop_,
+            redTulipCrop_,
+            whiteTulipCrop_,
+            witherRoseCrop_,
+
+            lilacCrop_.top_,
+            lilacCrop_.bottom_,
+            peonyCrop_.top_,
+            peonyCrop_.bottom_,
+            roseBushCrop_.top_,
+            roseBushCrop_.bottom_,
+            sunflowerCrop_.top_,
+            sunflowerCrop_.bottom_
         )) {
             fixLayerMap(crop);
         }

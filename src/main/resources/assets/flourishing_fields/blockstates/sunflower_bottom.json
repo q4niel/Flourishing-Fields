@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "age=0": {
+      "model": "flourishing_fields:block/flower_sprout"
+    },
+    "age=1": {
+      "model": "flourishing_fields:block/sunflower_bottom_middle"
+    },
+    "age=2": {
+      "model": "minecraft:block/sunflower_bottom"
+    }
+  }
+}

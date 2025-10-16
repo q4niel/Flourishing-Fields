@@ -4,7 +4,7 @@ import dev.q4niel.block.ModBlocks
 import dev.q4niel.item.TallFlowerSeedsItem
 import net.minecraft.block.Block
 
-class PeonySeedsItem (
+class RoseBushSeedsItem (
     settings: Settings,
-    override val crop_: Block = ModBlocks.peonyCrop_.bottom_
+    override val crop_: Block = ModBlocks.roseBushCrop_.bottom_
 ) : TallFlowerSeedsItem(settings);

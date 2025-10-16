@@ -31,9 +31,26 @@ class ModLootTableProvider (
     registryLookup
 ) {
     override fun generate() {
+        // Short Flowers
         _genFlowerCrop(ModBlocks.alliumCrop_, ModItems.alliumSeeds_, Items.ALLIUM);
+        _genFlowerCrop(ModBlocks.azureBluetCrop_, ModItems.azureBluetSeeds_, Items.AZURE_BLUET);
+        _genFlowerCrop(ModBlocks.blueOrchidCrop_, ModItems.blueOrchidSeeds_, Items.BLUE_ORCHID);
+        _genFlowerCrop(ModBlocks.cornflowerCrop_, ModItems.cornflowerSeeds_, Items.CORNFLOWER);
+        _genFlowerCrop(ModBlocks.dandelionCrop_, ModItems.dandelionSeeds_, Items.DANDELION);
+        _genFlowerCrop(ModBlocks.lilyOfTheValleyCrop_, ModItems.lilyOfTheValleySeeds_, Items.LILY_OF_THE_VALLEY);
+        _genFlowerCrop(ModBlocks.orangeTulipCrop_, ModItems.orangeTulipSeeds_, Items.ORANGE_TULIP);
+        _genFlowerCrop(ModBlocks.oxeyeDaisyCrop_, ModItems.oxeyeDaisySeeds_, Items.OXEYE_DAISY);
+        _genFlowerCrop(ModBlocks.pinkTulipCrop_, ModItems.pinkTulipSeeds_, Items.PINK_TULIP);
+        _genFlowerCrop(ModBlocks.poppyCrop_, ModItems.poppySeeds_, Items.POPPY);
+        _genFlowerCrop(ModBlocks.redTulipCrop_, ModItems.redTulipSeeds_, Items.RED_TULIP);
+        _genFlowerCrop(ModBlocks.whiteTulipCrop_, ModItems.whiteTulipSeeds_, Items.WHITE_TULIP);
+        _genFlowerCrop(ModBlocks.witherRoseCrop_, ModItems.witherRoseSeeds_, Items.WITHER_ROSE);
 
-        _genTallFlowerCrop(ModBlocks.peony_, ModItems.peonySeeds_, Items.PEONY);
+        // Tall Flowers
+        _genTallFlowerCrop(ModBlocks.lilacCrop_, ModItems.lilacSeeds_, Items.LILAC);
+        _genTallFlowerCrop(ModBlocks.peonyCrop_, ModItems.peonySeeds_, Items.PEONY);
+        _genTallFlowerCrop(ModBlocks.roseBushCrop_, ModItems.roseBushSeeds_, Items.ROSE_BUSH);
+        _genTallFlowerCrop(ModBlocks.sunflowerCrop_, ModItems.sunflowerSeeds_, Items.SUNFLOWER);
     }
 
     private fun _genFlowerCrop (
