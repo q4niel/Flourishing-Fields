@@ -1,6 +1,6 @@
 package dev.q4niel.item
 
-import dev.q4niel.EndpointHelper
+import dev.q4niel.FlourishingFields
 import dev.q4niel.flowerSeedsPlantables_
 import net.minecraft.block.Block
 import net.minecraft.item.Item
@@ -15,7 +15,7 @@ abstract class FlowerSeedsItem(settings: Item.Settings) : Item(settings) {
     protected open fun _guardClause(context: ItemUsageContext): Boolean = false;
 
     override fun useOnBlock(context: ItemUsageContext): ActionResult {
-        EndpointHelper.serverExec Runnable@ {
+        FlourishingFields.serverExec Runnable@ {
             if (_guardClause(context)) return@Runnable;
             if (!flowerSeedsPlantables_.contains (
                 context.world.getBlockState(context.blockPos).block

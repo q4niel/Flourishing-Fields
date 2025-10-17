@@ -1,6 +1,5 @@
 package dev.q4niel
 
-import dev.q4niel.block.ModBlocks
 import dev.q4niel.item.ModItems
 import net.fabricmc.fabric.api.loot.v3.LootTableSource
 import net.minecraft.block.Block
@@ -98,7 +97,7 @@ object LootTableModifiers {
         LootContext.EntityReference.THIS,
         EntityPredicate.Builder.create().type (
             EntityTypePredicate.create (
-                EndpointHelper.getServer()
+                FlourishingFields.server
                     ?.getWorld(World.OVERWORLD)
                     ?.registryManager
                     ?.getEntryOrThrow(RegistryKeys.ENTITY_TYPE)?.value(),

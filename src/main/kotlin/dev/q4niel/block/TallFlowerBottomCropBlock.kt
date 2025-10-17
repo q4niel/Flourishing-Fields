@@ -1,6 +1,6 @@
 package dev.q4niel.block
 
-import dev.q4niel.EndpointHelper
+import dev.q4niel.FlourishingFields
 import net.minecraft.block.Block
 import net.minecraft.block.BlockState
 import net.minecraft.block.ShapeContext
@@ -11,6 +11,7 @@ import net.minecraft.util.math.BlockPos
 import net.minecraft.util.math.random.Random
 import net.minecraft.util.shape.VoxelShape
 import net.minecraft.world.BlockView
+import java.util.concurrent.CompletableFuture
 
 abstract class TallFlowerBottomCropBlock(settings: Settings) : FlowerCropBlock(settings) {
     companion object {
@@ -41,7 +42,7 @@ abstract class TallFlowerBottomCropBlock(settings: Settings) : FlowerCropBlock(s
         builder?.add(age_);
     }
 
-    private fun _tryGrowUpperBlock(world: ServerWorld?, lowerPos: BlockPos?): Unit? = EndpointHelper.serverExec Runnable@ {
+    private fun _tryGrowUpperBlock(world: ServerWorld?, lowerPos: BlockPos?): CompletableFuture<Void>? = FlourishingFields.serverExec Runnable@ {
         if (!isMature(world?.getBlockState(lowerPos))) return@Runnable;
 
         world?.setBlockState (
@@ -53,7 +54,7 @@ abstract class TallFlowerBottomCropBlock(settings: Settings) : FlowerCropBlock(s
 
 
     override fun randomTick(state: BlockState?, world: ServerWorld?, pos: BlockPos?, random: Random?) {
-        EndpointHelper.serverExec Runnable@ {
+        FlourishingFields.serverExec Runnable@ {
             val age: Int = getAge(state);
             if (world?.getBaseLightLevel(pos, 0)!! < 9 || age >= getMaxAge()) return@Runnable;
 
@@ -78,7 +79,7 @@ abstract class TallFlowerBottomCropBlock(settings: Settings) : FlowerCropBlock(s
     ) {
         super.grow(world, random, pos, state);
 
-        EndpointHelper.serverExec Runnable@ {
+        FlourishingFields.serverExec Runnable@ {
             if (false == world?.getBlockState(pos?.up())?.isAir) {
                 world.breakBlock(pos, true);
                 return@Runnable;
@@ -90,7 +91,7 @@ abstract class TallFlowerBottomCropBlock(settings: Settings) : FlowerCropBlock(s
     override fun onStateReplaced(state: BlockState?, world: ServerWorld?, pos: BlockPos?, moved: Boolean) {
         super.onStateReplaced(state, world, pos, moved)
 
-        EndpointHelper.serverExec Runnable@ {
+        FlourishingFields.serverExec Runnable@ {
             if (world?.getBlockState(pos?.up())?.block !is TallFlowerTopCropBlock) return@Runnable;
             world.breakBlock(pos?.up(), false);
         };

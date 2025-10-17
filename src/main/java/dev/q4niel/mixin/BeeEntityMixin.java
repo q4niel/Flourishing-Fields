@@ -1,6 +1,7 @@
 package dev.q4niel.mixin;
 
-import dev.q4niel.EndpointHelper;
+import dev.q4niel.FlourishingFields;
+import dev.q4niel.ModConfig;
 import dev.q4niel.block.VanillaFlowerToCropKt;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -19,7 +20,7 @@ import java.util.Random;
 
 @Mixin(BeeEntity.class)
 public class BeeEntityMixin {
-    private BeeEntity _self = EndpointHelper.INSTANCE.isServer()
+    private BeeEntity _self = FlourishingFields.INSTANCE.isServer()
         ? (BeeEntity)(Object)this
         : null
     ;
@@ -28,7 +29,7 @@ public class BeeEntityMixin {
     private BlockPos _prevBlockPos = _self.getBlockPos();
 
     private World _getWorld() {
-        return EndpointHelper.INSTANCE.getServer().getWorld(World.OVERWORLD);
+        return FlourishingFields.INSTANCE.getServer().getWorld(World.OVERWORLD);
     }
 
     private BlockState _getFlowerBlockState() {
@@ -36,12 +37,13 @@ public class BeeEntityMixin {
     }
 
     private boolean _spreadRoll() {
-        return new Random().nextInt(100) < 5;
+        long percentage = ModConfig.INSTANCE.get().getBeeSpreadChance();
+        return new Random().nextLong(percentage) < 5;
     }
 
     @Inject(method = "tick()V", at = @At("HEAD"))
     public void tick(CallbackInfo ci) {
-        EndpointHelper.INSTANCE.serverExec(() -> {
+        FlourishingFields.INSTANCE.serverExec(() -> {
             if (!_self.hasNectar() && _hasSpread) _hasSpread = false;
 
             if (_prevBlockPos.getX() == _self.getBlockX()
