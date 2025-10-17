@@ -4,6 +4,7 @@ import dev.q4niel.EndpointHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.passive.BeeEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -20,6 +21,7 @@ public class BeeEntityMixin {
     ;
 
     private boolean _hasSpread = false;
+    private BlockPos _prevBlockPos = _self.getBlockPos();
 
     private World _getWorld() {
         return EndpointHelper.INSTANCE.getServer().getWorld(World.OVERWORLD);
@@ -29,7 +31,7 @@ public class BeeEntityMixin {
         return _getWorld().getBlockState(_self.getFlowerPos());
     }
 
-    private boolean _spreadChanceSuccess() {
+    private boolean _spreadRoll() {
         return new Random().nextInt(100) < 5;
     }
 
@@ -37,16 +39,22 @@ public class BeeEntityMixin {
     public void tick(CallbackInfo ci) {
         EndpointHelper.INSTANCE.serverExec(() -> {
             if (!_self.hasNectar() && _hasSpread) _hasSpread = false;
-            if (
-                !_self.hasNectar()
+
+            if (_prevBlockPos.getX() == _self.getBlockX()
+            &&  _prevBlockPos.getZ() == _self.getBlockZ()
+            ) return;
+            _prevBlockPos = _self.getBlockPos();
+
+            // 'tick' runs twice for some reason, hence the double roll
+            if (!_spreadRoll() && !_spreadRoll()) return;
+
+            if (!_self.hasNectar()
             ||  !_self.hasHivePos()
             ||  _self.getBlockPos() == null
             ||  _hasSpread
-            ||  !_spreadChanceSuccess()
             ) return;
 
-            if (
-                _getWorld().getBlockState(_self.getBlockPos()).isAir()
+            if (_getWorld().getBlockState(_self.getBlockPos()).isAir()
             &&  _getWorld().getBlockState(_self.getBlockPos().down()).isOf(Blocks.GRASS_BLOCK)
             ) {
                 _getWorld().setBlockState (
@@ -56,9 +64,8 @@ public class BeeEntityMixin {
                 );
                 _hasSpread = true;
             }
-            else if (
-                _getWorld().getBlockState(_self.getBlockPos().down()).isAir()
-            &&  _getWorld().getBlockState(_self.getBlockPos().down().down()).isOf(Blocks.GRASS_BLOCK)
+            else if (_getWorld().getBlockState(_self.getBlockPos().down()).isAir()
+            &&       _getWorld().getBlockState(_self.getBlockPos().down().down()).isOf(Blocks.GRASS_BLOCK)
             ) {
                 _getWorld().setBlockState (
                     _self.getBlockPos().down(),
