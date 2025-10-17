@@ -1,8 +1,11 @@
 package dev.q4niel.mixin;
 
 import dev.q4niel.EndpointHelper;
+import dev.q4niel.block.VanillaFlowerToCropKt;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.TallFlowerBlock;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -11,6 +14,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.Map;
 import java.util.Random;
 
 @Mixin(BeeEntity.class)
@@ -54,25 +58,32 @@ public class BeeEntityMixin {
             ||  _hasSpread
             ) return;
 
+            BlockPos plantPos = null;
+
             if (_getWorld().getBlockState(_self.getBlockPos()).isAir()
             &&  _getWorld().getBlockState(_self.getBlockPos().down()).isOf(Blocks.GRASS_BLOCK)
-            ) {
-                _getWorld().setBlockState (
-                    _self.getBlockPos(),
-                    _getFlowerBlockState(),
-                    3
-                );
-                _hasSpread = true;
-            }
+            ) plantPos = _self.getBlockPos();
             else if (_getWorld().getBlockState(_self.getBlockPos().down()).isAir()
             &&       _getWorld().getBlockState(_self.getBlockPos().down().down()).isOf(Blocks.GRASS_BLOCK)
-            ) {
-                _getWorld().setBlockState (
-                    _self.getBlockPos().down(),
-                    _getFlowerBlockState(),
-                    3
-                );
-                _hasSpread = true;
+            ) plantPos = _self.getBlockPos().down();
+            else return;
+
+            BlockState flowerState = null;
+
+            if (_getFlowerBlockState().getBlock() instanceof TallFlowerBlock) {
+                if (!_getWorld().getBlockState(plantPos.up()).isAir()) return;
+            }
+
+            for (Map.Entry<Block, Block> entry : VanillaFlowerToCropKt.getVanillaFlowerToCrop_().entrySet()) {
+                if (entry.getKey() == _getFlowerBlockState().getBlock()) {
+                    _getWorld().setBlockState (
+                            plantPos,
+                            entry.getValue().getDefaultState(),
+                            3
+                    );
+                    _hasSpread = true;
+                    break;
+                }
             }
         });
     }

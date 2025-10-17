@@ -1,5 +1,6 @@
 package dev.q4niel
 
+import dev.q4niel.block.ModBlocks
 import dev.q4niel.item.ModItems
 import net.fabricmc.fabric.api.loot.v3.LootTableSource
 import net.minecraft.block.Block
@@ -41,9 +42,26 @@ object LootTableModifiers {
             ->
 
             when (key.value) {
+                // Short Flowers
                 Identifier.ofVanilla("blocks/allium") -> _replaceFlower(Items.ALLIUM, Blocks.ALLIUM, ModItems.alliumSeeds_, false);
+                Identifier.ofVanilla("blocks/azure_bluet") -> _replaceFlower(Items.AZURE_BLUET, Blocks.AZURE_BLUET, ModItems.azureBluetSeeds_, false);
+                Identifier.ofVanilla("blocks/blue_orchid") -> _replaceFlower(Items.BLUE_ORCHID, Blocks.BLUE_ORCHID, ModItems.blueOrchidSeeds_, false);
+                Identifier.ofVanilla("blocks/cornflower") -> _replaceFlower(Items.CORNFLOWER, Blocks.CORNFLOWER, ModItems.cornflowerSeeds_, false);
+                Identifier.ofVanilla("blocks/dandelion") -> _replaceFlower(Items.DANDELION, Blocks.DANDELION, ModItems.dandelionSeeds_, false);
+                Identifier.ofVanilla("blocks/lily_of_the_valley") -> _replaceFlower(Items.LILY_OF_THE_VALLEY, Blocks.LILY_OF_THE_VALLEY, ModItems.lilyOfTheValleySeeds_, false);
+                Identifier.ofVanilla("blocks/orange_tulip") -> _replaceFlower(Items.ORANGE_TULIP, Blocks.ORANGE_TULIP, ModItems.orangeTulipSeeds_, false);
+                Identifier.ofVanilla("blocks/oxeye_daisy") -> _replaceFlower(Items.OXEYE_DAISY, Blocks.OXEYE_DAISY, ModItems.oxeyeDaisySeeds_, false);
+                Identifier.ofVanilla("blocks/pink_tulip") -> _replaceFlower(Items.PINK_TULIP, Blocks.PINK_TULIP, ModItems.pinkTulipSeeds_, false);
+                Identifier.ofVanilla("blocks/poppy") -> _replaceFlower(Items.POPPY, Blocks.POPPY, ModItems.poppySeeds_, false);
+                Identifier.ofVanilla("blocks/red_tulip") -> _replaceFlower(Items.RED_TULIP, Blocks.RED_TULIP, ModItems.redTulipSeeds_, false);
+                Identifier.ofVanilla("blocks/white_tulip") -> _replaceFlower(Items.WHITE_TULIP, Blocks.WHITE_TULIP, ModItems.whiteTulipSeeds_, false);
+                Identifier.ofVanilla("blocks/wither_rose") -> _replaceFlower(Items.WITHER_ROSE, Blocks.WITHER_ROSE, ModItems.witherRoseSeeds_, false);
 
+                // Tall Flowers
+                Identifier.ofVanilla("blocks/lilac") -> _replaceFlower(Items.LILAC, Blocks.LILAC, ModItems.lilacSeeds_, true);
                 Identifier.ofVanilla("blocks/peony") -> _replaceFlower(Items.PEONY, Blocks.PEONY, ModItems.peonySeeds_, true);
+                Identifier.ofVanilla("blocks/rose_bush") -> _replaceFlower(Items.ROSE_BUSH, Blocks.ROSE_BUSH, ModItems.roseBushSeeds_, true);
+                Identifier.ofVanilla("blocks/sunflower") -> _replaceFlower(Items.SUNFLOWER, Blocks.SUNFLOWER, ModItems.sunflowerSeeds_, true);
 
                 else -> original;
             }
