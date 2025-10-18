@@ -4,31 +4,41 @@ A Minecraft fabric mod about flowers and bees.
 ## Bee Behaviour
 When a bee collects nectar from a flower, there’s a small chance that the same type of flower will spawn on a block the bee flies over while returning to its beehive.
 ## Flower Behaviour
-- **Normal break:** 12.5% chance to drop 1-2 seeds *(no flower item)*
-- **Shears break:** always drops the flower
+- **Flower Seeds:** all flowers now have their own seeds item
 - **Planting:** seeds go on any block vanilla flowers accept
-- **Mature crop break:** returns seeds *(100%)*
-- **Mature crop with shears:** drops seeds & flower *(100%)*
+- **Flower Breakage**
+  - With *Hand*: small chance to drop *1-2* seeds
+  - With *Shears*: always drops the flower
+- **Crop Breakage**
+  - Immature: drops *one* seeds item
+  - Mature with *Hand*: drops seeds
+  - Mature with *Shears*: drops seeds & flower
 
-## Optional JSON Customization
-### File path: config/flourishing_fields.json
-```json
-{
-  "beeSpreadChance": 42,
-  "flowerSpreadBlacklist": [
+## Optional TOML Customization
+### File path: config/flourishing_fields.toml
+```toml
+# This (#) is a comment
+
+# The chance of bees spreading a flower (0-100)
+spread_chance = 5
+
+# If 'true', bees will spread flowers indefinitely
+unlimited_spread = false
+
+# Flowers listed will not be spread by bees
+spread_blacklist = [ # 
     "minecraft:poppy",
     "minecraft:rose_bush"
-  ]
-}
+]
 ```
 
 ## Download
 - [Modrinth](https://modrinth.com/mod/flourishing-fields/versions)
-- [CurseForge](https://www.curseforge.com/minecraft/mc-mods/flourishing-fields/files/all?page=1&pageSize=20)
-- [GitHub](https://github.com/q4niel/Flourishing-Fields/releases/tag/0.6.0)
+- [CurseForge](https://www.curseforge.com/members/q4niel/projects)
+- [GitHub](https://github.com/q4niel/Flourishing-Fields/releases)
 
 ## **Credits**
-- **Art Assets** created by **Max Westerlund**.
+- **Art Assets** created by [MaxWesterlund](https://github.com/MaxWesterlund).
 
 ## Feedback
 Found a bug or got some suggestions, head over to [GitHub Issues](https://github.com/q4niel/Flourishing-Fields/issues).
