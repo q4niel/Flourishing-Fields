@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.TallFlowerBlock;
 import net.minecraft.entity.passive.BeeEntity;
+import net.minecraft.registry.Registries;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.spongepowered.asm.mixin.Mixin;
@@ -26,6 +27,10 @@ public class BeeEntityMixin {
     ;
 
     private boolean _hasSpread = false;
+    private boolean _hasSpreadCheck() {
+        boolean unlimited = ModConfig.INSTANCE.get().getBeeUnlimitedSpread();
+        return (unlimited) ? false : _hasSpread;
+    }
     private BlockPos _prevBlockPos = _self.getBlockPos();
 
     private World _getWorld() {
@@ -37,15 +42,16 @@ public class BeeEntityMixin {
     }
 
     private boolean _spreadRoll() {
-        int percentage = (int)ModConfig.INSTANCE.get().getBeeSpreadChance();
-        return new Random().nextInt(100) < percentage;
+        int chance = (int)ModConfig.INSTANCE.get().getBeeSpreadChance();
+        return new Random().nextInt(100) < chance;
     }
 
     @Inject(method = "tick()V", at = @At("HEAD"))
     public void tick(CallbackInfo ci) {
         FlourishingFields.INSTANCE.serverExec(() -> {
-            if (!_self.hasNectar() && _hasSpread) _hasSpread = false;
+            if (!_self.hasNectar() && _hasSpreadCheck()) _hasSpread = false;
 
+            // Ensure one plant check per block
             if (_prevBlockPos.getX() == _self.getBlockX()
             &&  _prevBlockPos.getZ() == _self.getBlockZ()
             ) return;
@@ -57,9 +63,16 @@ public class BeeEntityMixin {
             if (!_self.hasNectar()
             ||  !_self.hasHivePos()
             ||  _self.getBlockPos() == null
-            ||  _hasSpread
+            ||  _hasSpreadCheck()
             ||  !_getWorld().getBlockState(_self.getBlockPos()).isAir()
             ) return;
+
+            // Return if blacklisted
+            for (String blackId : ModConfig.INSTANCE.get().getFlowerSpreadBlacklist()) {
+                if (blackId.equals(String.valueOf (
+                    Registries.BLOCK.getId(_getFlowerBlockState().getBlock())
+                ))) return;
+            }
 
             BlockPos plantPos = (_getWorld().getBlockState(_self.getBlockPos().down()).isAir())
                 ?   _self.getBlockPos().down()
