@@ -4,12 +4,12 @@
 	"version": "${version}",
 	"name": "Flourishing Fields",
 	"description": "A Minecraft fabric mod about flowers and bees",
-	"authors": [
-		"q4niel"
-	],
+	"authors": ["q4niel"],
+    "contributors": ["MaxWesterlund (Art Assets)"],
 	"contact": {
 		"homepage": "https://modrinth.com/mod/flourishing-fields",
-		"sources": "https://github.com/q4niel/Flourishing-Fields"
+		"sources": "https://github.com/q4niel/Flourishing-Fields",
+        "issues": "https://github.com/q4niel/Flourishing-Fields/issues"
 	},
 	"license": "Flourishing Fields License",
 	"icon": "assets/flourishing_fields/icon.png",
