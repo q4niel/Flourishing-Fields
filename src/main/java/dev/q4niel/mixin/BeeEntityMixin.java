@@ -1,11 +1,11 @@
 package dev.q4niel.mixin;
 
 import dev.q4niel.FlourishingFields;
+import dev.q4niel.FlowerSeedsPlantablesKt;
 import dev.q4niel.ModConfig;
 import dev.q4niel.block.VanillaFlowerToCropKt;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.TallFlowerBlock;
 import net.minecraft.entity.passive.BeeEntity;
 import net.minecraft.util.math.BlockPos;
@@ -37,8 +37,8 @@ public class BeeEntityMixin {
     }
 
     private boolean _spreadRoll() {
-        long percentage = ModConfig.INSTANCE.get().getBeeSpreadChance();
-        return new Random().nextLong(percentage) < 5;
+        int percentage = (int)ModConfig.INSTANCE.get().getBeeSpreadChance();
+        return new Random().nextInt(100) < percentage;
     }
 
     @Inject(method = "tick()V", at = @At("HEAD"))
@@ -58,34 +58,34 @@ public class BeeEntityMixin {
             ||  !_self.hasHivePos()
             ||  _self.getBlockPos() == null
             ||  _hasSpread
+            ||  !_getWorld().getBlockState(_self.getBlockPos()).isAir()
             ) return;
 
-            BlockPos plantPos = null;
-
-            if (_getWorld().getBlockState(_self.getBlockPos()).isAir()
-            &&  _getWorld().getBlockState(_self.getBlockPos().down()).isOf(Blocks.GRASS_BLOCK)
-            ) plantPos = _self.getBlockPos();
-            else if (_getWorld().getBlockState(_self.getBlockPos().down()).isAir()
-            &&       _getWorld().getBlockState(_self.getBlockPos().down().down()).isOf(Blocks.GRASS_BLOCK)
-            ) plantPos = _self.getBlockPos().down();
-            else return;
-
-            BlockState flowerState = null;
+            BlockPos plantPos = (_getWorld().getBlockState(_self.getBlockPos().down()).isAir())
+                ?   _self.getBlockPos().down()
+                :   _self.getBlockPos()
+            ;
 
             if (_getFlowerBlockState().getBlock() instanceof TallFlowerBlock) {
                 if (!_getWorld().getBlockState(plantPos.up()).isAir()) return;
             }
 
-            for (Map.Entry<Block, Block> entry : VanillaFlowerToCropKt.getVanillaFlowerToCrop_().entrySet()) {
-                if (entry.getKey() == _getFlowerBlockState().getBlock()) {
-                    _getWorld().setBlockState (
-                            plantPos,
-                            entry.getValue().getDefaultState(),
-                            3
-                    );
-                    _hasSpread = true;
-                    break;
+            for (Block plantable : FlowerSeedsPlantablesKt.getFlowerSeedsPlantables_()) {
+                if (plantable != _getWorld().getBlockState(plantPos.down()).getBlock()) continue;
+
+                for (Map.Entry<Block, Block> entry : VanillaFlowerToCropKt.getVanillaFlowerToCrop_().entrySet()) {
+                    if (entry.getKey() == _getFlowerBlockState().getBlock()) {
+                        _getWorld().setBlockState (
+                                plantPos,
+                                entry.getValue().getDefaultState(),
+                                3
+                        );
+                        _hasSpread = true;
+                        break;
+                    }
                 }
+
+                break;
             }
         });
     }
